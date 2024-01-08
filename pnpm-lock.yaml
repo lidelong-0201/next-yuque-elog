@@ -26,6 +26,9 @@ dependencies:
   '@tailwindcss/typography':
     specifier: ^0.5.4
     version: registry.npmmirror.com/@tailwindcss/typography@0.5.10(tailwindcss@3.4.1)
+  '@types/mdx':
+    specifier: ^2.0.10
+    version: registry.npmmirror.com/@types/mdx@2.0.10
   '@types/node':
     specifier: 20.4.7
     version: registry.npmmirror.com/@types/node@20.4.7
