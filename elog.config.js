@@ -39,6 +39,8 @@ module.exports = {
       outputDir: './src/app/articles',
       filename: 'urlname',
       format: 'markdown',
+      catalog: true,
+      formatExt: './elog.format.js'
     },
     halo: {
       endpoint: process.env.HALO_ENDPOINT,
