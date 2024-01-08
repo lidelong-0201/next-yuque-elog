@@ -4,6 +4,7 @@ import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
 import { formatDate } from '@/lib/formatDate'
+import moment from "moment/moment";
 
 function Article({ article }: { article: ArticleWithSlug }) {
   return (
@@ -18,26 +19,26 @@ function Article({ article }: { article: ArticleWithSlug }) {
           className="md:hidden"
           decorate
         >
-          {formatDate(article.date)}
+          {moment(article.date).format('YYYY-MM-DD')}
         </Card.Eyebrow>
         <Card.Description>{article.description}</Card.Description>
-        <Card.Cta>Read article</Card.Cta>
+        <Card.Cta>阅读全文</Card.Cta>
       </Card>
       <Card.Eyebrow
         as="time"
         dateTime={article.date}
         className="mt-1 hidden md:block"
       >
-        {formatDate(article.date)}
+        {moment(article.date).format('YYYY-MM-DD')}
       </Card.Eyebrow>
     </article>
   )
 }
 
 export const metadata: Metadata = {
-  title: 'Articles',
+  title: '撰写有关技术、软件教程的文章',
   description:
-    'All of my long-form thoughts on programming, leadership, product design, and more, collected in chronological order.',
+    '我所有关于编程、软件使用等的长篇想法，都按时间顺序收集。',
 }
 
 export default async function ArticlesIndex() {
@@ -45,8 +46,8 @@ export default async function ArticlesIndex() {
 
   return (
     <SimpleLayout
-      title="Writing on software design, company building, and the aerospace industry."
-      intro="All of my long-form thoughts on programming, leadership, product design, and more, collected in chronological order."
+      title="撰写有关技术、软件教程的文章"
+      intro="我所有关于编程、软件使用等的长篇想法，都按时间顺序收集。"
     >
       <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
         <div className="flex max-w-3xl flex-col space-y-16">
