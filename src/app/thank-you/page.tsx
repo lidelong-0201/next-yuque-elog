@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 export default function ThankYou() {
   return (
     <SimpleLayout
-      title="Thanks for subscribing."
-      intro="I’ll send you an email any time I publish a new blog post, release a new project, or have anything interesting to share that I think you’d want to hear about. You can unsubscribe at any time, no hard feelings."
+      title="感谢订阅。"
+      intro="每当我发布新的博客文章、发布新项目或有任何我认为您想听的有趣的事情要分享时，我都会向您发送电子邮件。您可以随时取消订阅。"
     />
   )
 }
