@@ -4,7 +4,6 @@ import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
 
 import '@/styles/tailwind.css'
-import Head from 'next/head'
 
 export const metadata: Metadata = {
   title: {
@@ -18,6 +17,9 @@ export const metadata: Metadata = {
       'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL}/feed.xml`,
     },
   },
+  other: {
+    'follow.it-verification-code': '8Guv7zRz4Smpx7SRKmaG',
+  },
 }
 
 export default function RootLayout({
@@ -27,12 +29,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
-      <Head>
-        <meta
-          name="follow.it-verification-code"
-          content="8Guv7zRz4Smpx7SRKmaG"
-        />
-      </Head>
       <body className="flex h-full bg-zinc-50 dark:bg-black">
         <Providers>
           <div className="flex w-full">
