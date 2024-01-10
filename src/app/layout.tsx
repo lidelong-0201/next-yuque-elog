@@ -8,7 +8,7 @@ import '@/styles/tailwind.css'
 export const metadata: Metadata = {
   title: {
     template: '%s - 李德龙',
-    default: '李德龙的前端blog',
+    default: '李德龙的前端博客',
   },
   description:
     'Hi，我是李德龙，目前是一名前端开发工程师，在此博客我将会总结工作、技术点滴,并添加筛选出来我觉得还不错的项目合集。',
