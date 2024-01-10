@@ -1,6 +1,5 @@
-'use client'
 import { Button } from '@/components/Button'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import React from 'react'
 function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -25,14 +24,24 @@ function MailIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 export default function Newsletter() {
-  const router = useRouter()
+  // const router = useRouter()
   return (
     <form
-      method="post"
-      action="https://api.follow.it/subscription-form/NmpGQmZDSHJwOE1pWTh6Zlh2Vkhzb1cyMEJPOHNoOG5kdFp0U3JBczB5YjFwaGl1SXpONmd5b0lqUWNPN1F0VU4zejJyT2ZaUnJRbEdNbVFKVjY0QjYyVzRrQWwrdEZqZDQvaVhqZUNOMm9RMXcraDhpTkx5RXErWStwU28vUW98YlNhQjhQN0VvQU5DUndzTU9hekpMN0RHVXEvM1c3bkR1L3BmZUVOUll6dz0=/8"
-      onSubmit={() => {
-        router.push('/thank-you')
-      }}
+      // onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+      //   e.preventDefault()
+      //   fetch('/api/newsletter', {
+      //     method: 'post',
+      //     body: JSON.stringify({
+      //       email: (document.querySelector('#email') as HTMLInputElement)!
+      //         .value,
+      //     }),
+      //   })
+      //   router.push('/thank-you')
+      // }}
+      action={
+        'https://api.follow.it/subscription-form/NmpGQmZDSHJwOE1pWTh6Zlh2Vkhzb1cyMEJPOHNoOG5kdFp0U3JBczB5YjFwaGl1SXpONmd5b0lqUWNPN1F0VU4zejJyT2ZaUnJRbEdNbVFKVjY0QjYyVzRrQWwrdEZqZDQvaVhqZUNOMm9RMXcraDhpTkx5RXErWStwU28vUW98YlNhQjhQN0VvQU5DUndzTU9hekpMN0RHVXEvM1c3bkR1L3BmZUVOUll6dz0=/8'
+      }
+      method={'post'}
       className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
     >
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
@@ -44,6 +53,7 @@ export default function Newsletter() {
       </p>
       <div className="mt-6 flex">
         <input
+          id="email"
           type="email"
           placeholder="邮箱地址"
           aria-label="邮箱地址"
