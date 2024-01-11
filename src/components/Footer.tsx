@@ -35,13 +35,6 @@ export function Footer() {
                 <p className="text-sm text-zinc-400 dark:text-zinc-500">
                   &copy; {new Date().getFullYear()} lidelong
                 </p>
-                <a
-                  href="https://beian.miit.gov.cn/"
-                  className="text-xs text-zinc-400 hover:text-teal-400 dark:text-zinc-500"
-                  target="_blank"
-                >
-                  豫ICP备2024041628号
-                </a>
               </div>
             </div>
           </ContainerInner>
