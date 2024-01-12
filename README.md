@@ -1,6 +1,6 @@
 # 李德龙的博客
 
-语雀作为博客后台，elog生成语雀内容，nextjs进行服务端渲染，vercel部署
+语雀作为博客后台，elog生成语雀内容，nextjs+mdx进行渲染，cloudflare+vercel搭建
 
 使用了以下技术和工具：
 - [Tailwind CSS](https://tailwindcss.com/): 一个高度可定制的 CSS 框架，用于快速构建现代化的用户界面。
