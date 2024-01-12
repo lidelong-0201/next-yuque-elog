@@ -26,7 +26,7 @@
 1. 克隆仓库到本地：
 
    ```bash
-   git clone https://github.com/your-username/your-blog.git
+   git clone https://github.com/lidelong-0201/next-yuque-elog.git
    ```
 
 2. 安装依赖：
