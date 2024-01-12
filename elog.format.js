@@ -10,7 +10,7 @@ const format = async (doc) => {
 import Image from 'next/image'
 
 export const article = {
-  author: '李德龙',
+  author: 'delong',
   date:"${doc.properties.date}",
   title: "${doc.properties.title}",
   description:"${doc.properties.description}",
@@ -22,13 +22,12 @@ export const metadata = {
 };
 
 export default (props) => <ArticleLayout article={article} {...props} />;
-`;
-    doc.body = codeToAdd+'\n'+doc.body
-
+`
+    doc.body = codeToAdd + '\n' + doc.body
   }
-  return doc;
-};
+  return doc
+}
 
 module.exports = {
   format,
-};
+}

@@ -167,7 +167,7 @@ export default async function Home() {
             前端开发者
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            Hi，我是李德龙，目前是一名前端开发工程师，在此博客我将会总结工作、技术点滴,并添加筛选出来我觉得还不错的项目合集。
+            Hi，我是delong，目前是一名前端开发工程师，在此博客我将会总结工作、技术点滴,并添加筛选出来我觉得还不错的项目合集。
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink

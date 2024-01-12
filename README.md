@@ -1,4 +1,4 @@
-# 李德龙的博客
+# delong的博客
 
 语雀作为博客后台，elog生成语雀内容，nextjs+mdx进行渲染，cloudflare+vercel搭建
 

@@ -1,7 +1,3 @@
-// import * as remarkMdx from 'remark-mdx';
-import {unified} from 'unified';
-import remarkParse from 'remark-parse'
-import remarkStringify from 'remark-stringify'
 import * as fs from 'fs';
 import * as path from 'path';
 const __filename = new URL(import.meta.url).pathname;
@@ -55,11 +51,6 @@ import ${str} from "../${p2}";
     <Image src={${str}} alt="" />
     `
     })
-    // // 使用 unified 构建转换流水线
-    // const resultMdx = unified()
-    //   .use(remarkParse)
-    //   .use(remarkStringify)
-    //   .processSync(markdownContent);
     // 同步创建文件夹
     fs.mkdirSync(outputFilePath, { recursive: true });
     // 将转换结果写入  文件
