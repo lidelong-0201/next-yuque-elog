@@ -3,8 +3,7 @@ import { type Metadata } from 'next'
 import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
-import { formatDate } from '@/lib/formatDate'
-import moment from "moment/moment";
+import moment from 'moment/moment'
 
 function Article({ article }: { article: ArticleWithSlug }) {
   return (
@@ -37,8 +36,7 @@ function Article({ article }: { article: ArticleWithSlug }) {
 
 export const metadata: Metadata = {
   title: '撰写有关技术、软件教程的文章',
-  description:
-    '我所有关于编程、软件使用等的长篇想法，都按时间顺序收集。',
+  description: '我所有关于编程、软件使用等的长篇想法，都按时间顺序收集。',
 }
 
 export default async function ArticlesIndex() {

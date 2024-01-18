@@ -1,0 +1,339 @@
+import { ArticleLayout } from '@/components/ArticleLayout';
+import Image from 'next/image'
+
+export const article = {
+  author: 'delong',
+  date:"2024-01-18 11:18:55",
+  title: "搭建Webpack项目（基础配置）",
+  description:"[description](构建耗时监控、持久化存储缓存、多线程 Loader、缩小构建目标以及 DevTools 配置等方面。其中，配置自定义记者数组用于在构建阶段执行特定操作，speed-measure-webpack-plugin 用于监控构建耗时。在 webpack5 中，通过持久化缓...",
+};
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+};
+
+export default (props) => <ArticleLayout article={article} {...props} />;
+
+[description](构建耗时监控、持久化存储缓存、多线程 Loader、缩小构建目标以及 DevTools 配置等方面。其中，配置自定义记者数组用于在构建阶段执行特定操作，speed-measure-webpack-plugin 用于监控构建耗时。在 webpack5 中，通过持久化缓存可以显著加速启动和打包时间。使用 thread-loader 可以在大型项目中提高 loader 解析速度。通过合理配置 loader 的作用范围，可以减少不必要的解析，进而节省构建时间。最后，在开发环境和生产环境分别配置 DevTools，以优化本地构建速度和源代码映射)<br />**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
+## 引入 less、sass（scss）、stylus
+安装相关依赖：
+```bash
+pnpm add less less-loader sass-loader node-sass stylus stylus-loader -D
+```
+在 **webpack.base.ts** 中配置相关loader，包括对 **.less**、**.scss**、**.sass**、**.styl** 文件的处理。
+```tsx
+
+// webpack.base.ts
+const cssRegex = /\.css$/;
+const sassRegex = /\.(scss|sass)$/;
+const lessRegex = /\.less$/;
+const stylRegex = /\.styl$/;
+
+const styleLoadersArray = [
+  "style-loader",
+  {
+    loader: "css-loader",
+    options: {
+      modules: {
+        localIdentName: "[path][name]__[local]--[hash:5]",
+      },
+    },
+  },
+];
+
+const baseConfig: Configuration = {
+  // ...
+  module: {
+    rules: [
+      // ...
+       {
+        test: cssRegex, //匹配 css 文件
+        use: styleLoadersArray,
+      },
+      {
+        test: lessRegex,
+        use: [
+          ...styleLoadersArray,
+          {
+            loader: "less-loader",
+            options: {
+              lessOptions: {
+                javascriptEnabled: true
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: sassRegex,
+        use: [
+          ...styleLoadersArray,
+          "sass-loader",
+        ],
+      },
+      {
+        test: stylRegex,
+        use: [
+          ...styleLoadersArray,
+          "stylus-loader",
+        ],
+      },
+    ],
+  },
+  // ...
+};
+
+export default baseConfig;
+```
+在 **global.d.ts** 中添加声明，避免写 **.module** 后缀。
+```tsx
+// src/typings/global.d.ts
+
+/* CSS MODULES */
+declare module '*.css' {
+  const classes: { [key: string]: string };
+  export default classes;
+}
+
+declare module '*.scss' {
+  const classes: { [key: string]: string };
+  export default classes;
+}
+
+declare module '*.sass' {
+  const classes: { [key: string]: string };
+  export default classes;
+}
+
+declare module '*.less' {
+  const classes: { [key: string]: string };
+  export default classes;
+}
+
+declare module '*.styl' {
+  const classes: { [key: string]: string };
+  export default classes;
+}
+```
+
+## 热更新
+安装相关依赖
+```bash
+pnpm add @pmmmwh/react-refresh-webpack-plugin react-refresh -D
+```
+在 **webpack.dev.ts** 中配置热更新插件 **ReactRefreshWebpackPlugin**：
+```tsx
+// ...
+import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
+
+// ...
+
+const devConfig: Configuration = merge(baseConfig, {
+  mode: "development",
+  devtool: "eval-cheap-module-source-map",
+  plugins: [
+    new ReactRefreshWebpackPlugin(), // 添加热更新插件
+  ],
+});
+
+// ...
+```
+在 **babel.config.js** 文件中为 **babel-loader** 配置 **react-refresh** 插件：
+```jsx
+// ...
+const isDEV = process.env.NODE_ENV === "development";
+
+module.exports = {
+  // ...
+  plugins: [
+    ["@babel/plugin-proposal-decorators", { legacy: true }],
+    isDEV && require.resolve("react-refresh/babel"), // 如果是开发模式,就启动react热更新插件
+  ].filter(Boolean),
+};
+```
+在 **App.tsx** 中测试热更新效果，修改组件代码或添加删除页面 hooks 时，观察页面是否实时更新，并检查 React 组件的状态是否保留。
+## webpack构建速度优化
+### webpack 进度条
+webpackbar 这是一款个人感觉是个十分美观优雅的进度条，很多成名框架都用过他。而且使用起来也极其方便，也可以支持多个并发构建是个十分强大的进度插件。
+```bash
+pnpm add webpackbar -D
+```
+最常用的属性配置其实就是这些，注释里也写的很清楚了，我们在 webpack.base.ts 中引入：
+```tsx
+// ...
+import WebpackBar from 'webpackbar';
+
+// ...
+
+const baseConfig: Configuration = {
+  // ...
+
+  // plugins 的配置
+  plugins: [
+    // ...
+    new WebpackBar({
+      color: "#85d",  // 默认green，进度条颜色支持HEX
+      basic: false,   // 默认true，启用一个简单的日志报告器
+      profile:false,  // 默认false，启用探查器。
+    })
+  ],
+};
+
+export default baseConfig;
+```
+当然里面还有一个属性就是 reporters 还没有写上，可以在里面注册事件，也可以理解为各种钩子函数。如下：
+```tsx
+{   // 注册一个自定义记者数组
+  start(context) {
+    // 在（重新）编译开始时调用
+    const { start, progress, message, details, request, hasErrors } = context
+  },
+  change(context) {
+    // 在 watch 模式下文件更改时调用
+  },
+  update(context) {
+    // 在每次进度更新后调用
+  },
+  done(context) {
+    // 编译完成时调用
+  },
+  progress(context) {
+    // 构建进度更新时调用
+  },
+  allDone(context) {
+    // 当编译完成时调用
+  },
+  beforeAllDone(context) {
+    // 当编译完成前调用
+  },
+  afterAllDone(context) {
+    // 当编译完成后调用
+  },
+}
+```
+当然多数情况下，我们并不会使用这些，基本默认就足够了。最后，刚才的代码我们的输出表现为：<br />其他的工具可看：[聊聊webpack的打包进度展示及美化](https://juejin.cn/post/7055321034454466596)
+### 构建耗时
+Never, ever, ever, ever work on performance improvements or optimization without monitoring! 永远，永远，永远，永远不要在没有监控的情况下进行性能改进或优化！<br />意思是，如果我们想要去优化webpack，一定要通过评估、测试之后，针对影响性能的点进行优化，而不是盲目地为了优化而优化。<br />当进行优化的时候，肯定要先知道时间都花费在哪些步骤上了，而 [speed-measure-webpack-plugin](https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fspeed-measure-webpack-plugin) 插件可以帮我们做到，安装依赖：
+```bash
+pnpm add speed-measure-webpack-plugin -D
+```
+使用的时候为了不影响到正常的开发/打包模式，我们选择新建一个配置文件，新增webpack构建分析配置文件build/webpack.analy.ts
+```tsx
+const prodConfig = require('./webpack.prod.js') // 引入打包配置
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin'); // 引入webpack打包速度分析插件
+const smp = new SpeedMeasurePlugin(); // 实例化分析插件
+const { merge } = require('webpack-merge') // 引入合并webpack配置方法
+
+// 使用smp.wrap方法,把生产环境配置传进去,由于后面可能会加分析配置,所以先留出合并空位
+module.exports = smp.wrap(merge(prodConfig, {
+
+}))
+```
+修改package.json添加启动webpack打包分析脚本命令，在scripts新增：
+```json
+{
+  // ...
+  "scripts": {
+    // ...
+    "build:analy": "cross-env NODE_ENV=production BASE_ENV=production webpack -c build/webpack.analy.ts"
+  }
+  // ...
+}
+```
+执行npm run build:analy命令
+
+### 开启持久化存储缓存
+在webpack5之前做缓存是使用babel-loader缓存解决 js 的解析结果，cache-loader缓存css等资源的解析结果，还有模块缓存插件hard-source-webpack-plugin，配置好缓存后第二次打包，通过对文件做哈希对比来验证文件前后是否一致，如果一致则采用上一次的缓存，可以极大地节省时间。<br />webpack5 较于 webpack4，新增了持久化缓存、改进缓存算法等优化，通过配置 [webpack 持久化缓存](https://link.juejin.cn?target=https%3A%2F%2Fwebpack.docschina.org%2Fconfiguration%2Fcache%2F%23root)，来缓存生成的 webpack 模块和 chunk，改善下一次打包的构建速度,可提速 90% 左右,配置也简单，修改webpack.base.ts：
+```
+// webpack.base.ts
+// ...
+module.exports = {
+  // ...
+  cache: {
+    type: 'filesystem', // 使用文件缓存
+  },
+}
+```
+当前代码的测试结果：
+
+| 模式 | 第一次耗时 | 第二次耗时 |
+| --- | --- | --- |
+| 开发模式 | 4151毫秒 | 1310毫秒 |
+| 打包模式 | 4945毫秒 | 590毫秒 |
+
+通过开启webpack5持久化存储缓存，极大缩短了启动和打包的时间。缓存的存储位置在node_modules/.cache/webpack，里面又区分了development和production缓存。
+### 开启多线程 loader
+运行在 Node.js 之上的 webpack 是单线程模式的，也就是说，webpack 打包只能逐个文件处理，当 webpack 需要打包大量文件时，打包时间就会比较漫长。<br />webpack的loader默认在单线程执行，现代电脑一般都有多核cpu，可以借助多核cpu开启多线程loader解析，可以极大地提升loader解析的速度，[thread-loader](https://link.juejin.cn/?target=https%3A%2F%2Fwebpack.docschina.org%2Floaders%2Fthread-loader%2F%23root)就是用来开启多进程解析loader的，安装依赖
+```bash
+pnpm add thread-loader -D
+```
+使用时,需将此 loader 放置在其他 loader 之前。放置在此 loader 之后的 loader 会在一个独立的 worker 池中运行。<br />修改webpack.base.ts
+```tsx
+module: {
+  rules: [
+    {
+      test: tsxRegex, // 匹配.ts, tsx文件
+      use: ['thread-loader', 'babel-loader']
+    }
+  ]
+}
+```
+由于thread-loader不支持抽离css插件MiniCssExtractPlugin.loader(下面会讲)，所以这里只配置了多进程解析 ts。<br />值得注意的是，开启多线程也是需要启动时间，thread-loader 会将你的 loader 放置在一个 worker 池里面运行，每个 worker 都是一个单独的有 600ms 限制的 Node.js 进程。同时跨进程的数据交换也会被限制，所以最好是项目变大到一定程度之时再采用，否则效果反而不好。
+### 缩小构建目标
+一般第三库都是已经处理好的,不需要再次使用loader去解析，可以按照实际情况合理配置loader的作用范围，来减少不必要的loader解析，节省时间，通过使用 include和exclude 两个配置项，可以实现这个功能，常见的例如：
+
+- include：只解析该选项配置的模块
+- exclude：不解该选项配置的模块,优先级更高
+
+修改webpack.base.ts
+```tsx
+module: {
+  rules: [
+    {
+      test: tsxRegex, // 匹配.ts, tsx文件
+      exclude: /node_modules/,
+      use: ['thread-loader', 'babel-loader']
+    }
+  ]
+}
+```
+其他loader也是相同的配置方式，如果除src文件外也还有需要解析的，就把对应的目录地址加上就可以了，比如需要引入antd的css，可以把antd的文件目录路径添加解析css规则到include里面。
+### devtools 配置
+开发过程中或者打包后的代码都是webpack处理后的代码，如果进行调试肯定希望看到源代码，而不是编译后的代码，source map就是用来做源码映射的，不同的映射模式会明显影响到构建和重新构建的速度，devtool选项就是webpack提供的选择源码映射方式的配置。<br />devtool的命名规则为：
+```bash
+^(inline-|hidden-|eval-)?(nosources-)?(cheap-(module-)?)?source-map$
+```
+| 关键字 | 描述 |
+| --- | --- |
+| inline | 代码内通过 dataUrl 形式引入 SourceMap |
+| hidden | 生成 SourceMap 文件,但不使用 |
+| eval | eval(...) 形式执行代码,通过 dataUrl 形式引入 SourceMap |
+| nosources | 不生成 SourceMap |
+| cheap | 只需要定位到行信息,不需要列信息 |
+| module | 展示源代码中的错误位置 |
+
+开发环境推荐：eval-cheap-module-source-map
+
+- 本地开发首次打包慢点没关系，因为 eval 缓存的原因，热更新会很快
+- 开发中，我们每行代码不会写的太长，只需要定位到行就行，所以加上 cheap
+- 我们希望能够找到源代码的错误，而不是打包后的，所以需要加上 module
+
+修改webpack.dev.ts
+```tsx
+// webpack.dev.ts
+module.exports = {
+  // ...
+  devtool: 'eval-cheap-module-source-map'
+}
+```
+打包环境推荐：none(就是不配置devtool选项了，不是配置devtool: 'none')
+```tsx
+// webpack.prod.ts
+module.exports = {
+  // ...
+  // devtool: '', // 不用配置devtool此项
+}
+```
+none配置在调试的时候，只能看到编译后的代码，也不会泄露源代码，打包速度也会比较快。只是不方便线上排查问题，但一般都可以根据报错信息在本地环境很快找出问题所在。
+

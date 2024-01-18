@@ -1,27 +1,15 @@
 import Image, { type ImageProps } from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
-
-import { Button } from '@/components/Button'
 import { Card } from '@/components/Card'
 import { Container } from '@/components/Container'
-import {
-  GitHubIcon,
-  InstagramIcon,
-  LinkedInIcon,
-  TwitterIcon,
-} from '@/components/SocialIcons'
-import logoAirbnb from '@/images/logos/airbnb.svg'
-import logoFacebook from '@/images/logos/facebook.svg'
-import logoPlanetaria from '@/images/logos/planetaria.svg'
-import logoStarbucks from '@/images/logos/starbucks.svg'
+import { AtomIcon, GitHubIcon, MailIcon } from '@/components/SocialIcons'
 import image1 from '@/images/photos/image-1.jpg'
 import image2 from '@/images/photos/image-2.jpg'
 import image3 from '@/images/photos/image-3.jpg'
 import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
 import { type ArticleWithSlug, getAllArticles } from '@/lib/articles'
-import { formatDate } from '@/lib/formatDate'
 import moment from 'moment/moment'
 import { projects, ProjectType } from '@/lib/projects'
 import Newsletter from '@/ui/Newsletter'
@@ -69,7 +57,6 @@ function Article({ article }: { article: ArticleWithSlug }) {
         {article.title}
       </Card.Title>
       <Card.Eyebrow as="time" dateTime={article.date} decorate>
-        {/*{formatDate(article.date)}*/}
         {moment(article.date).format('YYYY-MM-DD')}
       </Card.Eyebrow>
       <Card.Description>{article.description}</Card.Description>
@@ -86,7 +73,7 @@ function SocialLink({
 }) {
   return (
     <Link className="group -m-1 p-1" {...props}>
-      <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300" />
+      <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300 " />
     </Link>
   )
 }
@@ -171,24 +158,22 @@ export default async function Home() {
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
-              href="https://twitter.com"
-              aria-label="Follow on Twitter"
-              icon={TwitterIcon}
-            />
-            <SocialLink
-              href="https://instagram.com"
-              aria-label="Follow on Instagram"
-              icon={InstagramIcon}
-            />
-            <SocialLink
-              href="https://github.com"
-              aria-label="Follow on GitHub"
+              title={'github'}
+              href="https://github.com/lidelong-0201"
+              aria-label="GitHub"
               icon={GitHubIcon}
             />
             <SocialLink
-              href="https://linkedin.com"
-              aria-label="Follow on LinkedIn"
-              icon={LinkedInIcon}
+              href="mailto:lidelong0201@foxmail.com"
+              aria-label="邮箱"
+              title={'邮箱'}
+              icon={MailIcon}
+            />
+            <SocialLink
+              href="https://follow.it/5yomdm?leanpub"
+              aria-label="RSS 订阅"
+              title={'RSS 订阅'}
+              icon={AtomIcon}
             />
           </div>
         </div>
