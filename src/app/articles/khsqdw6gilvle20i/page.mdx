@@ -1,21 +1,21 @@
+
 import { ArticleLayout } from '@/components/ArticleLayout';
-import Image from 'next/image'
 
 export const article = {
-  author: 'delong',
-  date:"2024-01-18 11:18:55",
-  title: "搭建Webpack项目（基础配置）",
-  description:"[description](构建耗时监控、持久化存储缓存、多线程 Loader、缩小构建目标以及 DevTools 配置等方面。其中，配置自定义记者数组用于在构建阶段执行特定操作，speed-measure-webpack-plugin 用于监控构建耗时。在 webpack5 中，通过持久化缓...",
-};
-
+    author: 'delong',
+    date: "2024-01-18 11:18:55",
+    title: "搭建Webpack项目（基础配置）",
+    description: "构建耗时监控、持久化存储缓存、多线程 Loader、缩小构建目标以及 DevTools 配置等方面。其中，配置自定义记者数组用于在构建阶段执行特定操作，speed-measure-webpack-plugin 用于监控构建耗时。在 webpack5 中，通过持久化缓存可以显著加速启动和打包时间。使用 thread-loader 可以在大型项目中提高 loader 解析速度。通过合理配置 loader 的作用范围，可以减少不必要的解析，进而节省构建时间。最后，在开发环境和生产环境分别配置 DevTools，以优化本地构建速度和源代码映射",
+  };
+  
 export const metadata = {
-  title: article.title,
-  description: article.description,
+    title: article.title,
+    description: article.description,
 };
-
+  
 export default (props) => <ArticleLayout article={article} {...props} />;
 
-[description](构建耗时监控、持久化存储缓存、多线程 Loader、缩小构建目标以及 DevTools 配置等方面。其中，配置自定义记者数组用于在构建阶段执行特定操作，speed-measure-webpack-plugin 用于监控构建耗时。在 webpack5 中，通过持久化缓存可以显著加速启动和打包时间。使用 thread-loader 可以在大型项目中提高 loader 解析速度。通过合理配置 loader 的作用范围，可以减少不必要的解析，进而节省构建时间。最后，在开发环境和生产环境分别配置 DevTools，以优化本地构建速度和源代码映射)<br />**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
+
 ## 引入 less、sass（scss）、stylus
 安装相关依赖：
 ```bash
@@ -335,5 +335,7 @@ module.exports = {
   // devtool: '', // 不用配置devtool此项
 }
 ```
-none配置在调试的时候，只能看到编译后的代码，也不会泄露源代码，打包速度也会比较快。只是不方便线上排查问题，但一般都可以根据报错信息在本地环境很快找出问题所在。
+none配置在调试的时候，只能看到编译后的代码，也不会泄露源代码，打包速度也会比较快。只是不方便线上排查问题，但一般都可以根据报错信息在本地环境很快找出问题所在。<br />**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
 
+
+  

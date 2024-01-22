@@ -1,24 +1,22 @@
+
 import { ArticleLayout } from '@/components/ArticleLayout';
-import Image from 'next/image'
 
 export const article = {
-  author: 'delong',
-  date:"2024-01-18 11:46:36",
-  title: "搭建webpack项目（代码质量）",
-  description:"[description](在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，规范化代码格式、语法检测以及提交流程，以提升开发团队的协同工作。)在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，...",
-};
-
+    author: 'delong',
+    date: "2024-01-18 11:46:36",
+    title: "搭建webpack项目（代码质量）",
+    description: "在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，规范化代码格式、语法检测以及提交流程，以提升开发团队的协同工作。",
+  };
+  
 export const metadata = {
-  title: article.title,
-  description: article.description,
+    title: article.title,
+    description: article.description,
 };
-
+  
 export default (props) => <ArticleLayout article={article} {...props} />;
 
-[description](在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，规范化代码格式、语法检测以及提交流程，以提升开发团队的协同工作。)<br />在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，规范化代码格式、语法检测以及提交流程，以提升开发团队的协同工作。)
-
-**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
-### 1.1 代码格式规范和语法检测工具
+<br />在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，规范化代码格式、语法检测以及提交流程，以提升开发团队的协同工作。
+### 代码格式规范和语法检测工具
 在项目中使用代码格式规范和语法检测工具是确保代码质量的重要手段，它们有助于统一团队的代码风格，减少潜在的错误。
 ```bash
 # 安装 ESLint
@@ -26,7 +24,7 @@ npm install eslint --save-dev
 # 初始化 ESLint 配置文件
 npx eslint --init
 ```
-### 1.2 代码提交规范工具
+###  代码提交规范工具
 规范的代码提交流程对于代码管理和版本控制至关重要。使用代码提交规范工具可以确保提交信息的一致性，方便团队协作和版本追踪。
 ```bash
 # 安装 Commitlint
@@ -34,45 +32,50 @@ npm install @commitlint/cli @commitlint/config-conventional --save-dev
 # 初始化 Commitlint 配置文件
 echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
 ```
-## 2. editorconfig
-### 2.1 安装 EditorConfig for VS Code
-在 VS Code 中安装 EditorConfig 插件，以便项目中的编辑器配置得到统一。
-### 2.2 新建 .editorconfig
+## editorconfig
+安装 EditorConfig for VS Code<br />在 VS Code 中安装 EditorConfig 插件，以便项目中的编辑器配置得到统一。
+### 新建 .editorconfig
 创建 **.editorconfig** 文件，定义项目中的编辑器配置规则，例如缩进、换行符等。
 ```
-# .editorconfig
+# https://editorconfig.org
+root = true # 设置为true表示根目录，控制配置文件 .editorconfig 是否生效的字段
 
-root = true
+[*] # 匹配全部文件，匹配除了 `/` 路径分隔符之外的任意字符串
+charset = utf-8                  # 设置字符编码，取值为 latin1，utf-8，utf-8-bom，utf-16be 和 utf-16le，当然 utf-8-bom 不推荐使用
+end_of_line = lf                 # 设置使用的换行符，取值为 lf，cr 或者 crlf
+indent_size = 2                  # 设置缩进的大小，即缩进的列数，当 indexstyle 取值 tab 时，indentsize 会使用 tab_width 的值
+indent_style = space             # 缩进风格，可选space｜tab
+insert_final_newline = true      # 设为true表示使文件以一个空白行结尾
+trim_trailing_whitespace = true  # 删除一行中的前后空格
 
-[*]
-indent_style = space
-indent_size = 2
-end_of_line = lf
-charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
+[*.md] # 匹配全部 .md 文件
+trim_trailing_whitespace = false
+
 ```
-## 3. prettier
-### 3.1 安装 VS Code 插件和 prettier
+##  prettier
+###  安装 VS Code 插件和 prettier
 通过安装 VS Code 插件和 prettier 工具，实现代码的自动格式化。
 ```bash
 # 安装 Prettier
 npm install --save-dev --save-exact prettier
 ```
-### 3.2 新建 .prettier.js
+### 新建 .prettier.js
 创建 **.prettier.js** 文件，配置 prettier 的格式化规则。
 ```jsx
-// .prettier.js
-
 module.exports = {
-  semi: false,
-  singleQuote: true,
-  printWidth: 80,
-  tabWidth: 2,
-  trailingComma: 'none',
+  tabWidth: 2, // 一个tab代表几个空格数，默认就是2
+  useTabs: false, // 是否启用tab取代空格符缩进，.editorconfig设置空格缩进，所以设置为false
+  printWidth: 100, // 一行的字符数，如果超过会进行换行
+  semi: false, // 行尾是否使用分号，默认为true
+  singleQuote: true, // 字符串是否使用单引号
+  trailingComma: "none", // 对象或数组末尾是否添加逗号 none| es5| all
+  jsxSingleQuote: true, // 在jsx里是否使用单引号，你看着办
+  bracketSpacing: true, // 对象大括号直接是否有空格，默认为true，效果：{ foo: bar }
+  arrowParens: "avoid", // 箭头函数如果只有一个参数则省略括号
 };
+
 ```
-### 3.3 配置 .vscode/settings.json
+###  配置 .vscode/settings.json
 在 VS Code 中的项目设置中配置 **settings.json**，启用 prettier 插件，并关联 **.prettier.js** 配置文件。
 ```json
 
@@ -86,7 +89,7 @@ module.exports = {
   }
 }
 ```
-### 3.4 脚本命令检查和修复格式
+### 脚本命令检查和修复格式
 通过配置脚本命令，在项目中使用 prettier 进行代码格式的检查和修复。
 ```json
 // package.json
@@ -97,15 +100,15 @@ module.exports = {
   "lint-fix": "eslint --fix src"
 }
 ```
-## 4. Markdownlint
-### 4.1 安装 markdownlint-cli
+## Markdownlint
+### 安装 markdownlint-cli
 使用 markdownlint-cli 工具，实现对 Markdown 文件的语法检测。
 ```bash
 
 # 安装 markdownlint-cli
 npm install -g markdownlint-cli
 ```
-### 4.2 新建 .markdownlint.js
+### 新建 .markdownlint.js
 创建 **.markdownlint.js** 文件，定义 Markdown 文件的语法检测规则。
 ```jsx
 // .markdownlint.js
@@ -116,7 +119,7 @@ module.exports = {
   MD033: { allowed_elements: ['img'] }, // Inline HTML
 };
 ```
-### 4.3 配置 .vscode/settings.json
+### 配置 .vscode/settings.json
 在 VS Code 项目设置中配置 **settings.json**，启用 markdownlint 插件，并关联 **.markdownlint.js** 配置文件。
 ```json
 
@@ -126,33 +129,187 @@ module.exports = {
   "markdownlint.config": "./.markdownlint.js"
 }
 ```
-## 5. stylelint
-### 5.1 安装 stylelint 插件和依赖
+## stylelint
+### 安装 stylelint 插件和依赖
 使用 stylelint 插件和相关依赖，实现对样式文件的语法检测。
 ```bash
 # 安装 stylelint
 npm install stylelint stylelint-config-standard stylelint-config-prettier stylelint-prettier --save-dev
 ```
-### 5.2 新建 .stylelintrc.js 和 .stylelintignore
+### 新建 .stylelintrc.js 和 .stylelintignore
 创建 **.stylelintrc.js** 文件，定义 stylelint 的配置规则，并新建 **.stylelintignore** 文件，配置要忽略的文件或目录。
 ```jsx
-// .stylelintrc.js
-
 module.exports = {
-  extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
-  plugins: ['stylelint-prettier'],
+  extends: [
+    'stylelint-config-standard',
+    'stylelint-config-prettier'
+    // "stylelint-config-recess-order" // 配置stylelint css属性书写顺序插件,
+  ],
+  plugins: ['stylelint-order'],
   rules: {
-    'prettier/prettier': true,
-  },
-};
+    /**
+     * indentation: null, // 指定缩进空格
+      "no-descending-specificity": null, // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器
+      "function-url-quotes": "always", // 要求或禁止 URL 的引号 "always(必须加上引号)"|"never(没有引号)"
+      "string-quotes": "double", // 指定字符串使用单引号或双引号
+      "unit-case": null, // 指定单位的大小写 "lower(全小写)"|"upper(全大写)"
+      "color-hex-case": "lower", // 指定 16 进制颜色的大小写 "lower(全小写)"|"upper(全大写)"
+      "color-hex-length": "long", // 指定 16 进制颜色的简写或扩写 "short(16进制简写)"|"long(16进制扩写)"
+      "rule-empty-line-before": "never", // 要求或禁止在规则之前的空行 "always(规则之前必须始终有一个空行)"|"never(规则前绝不能有空行)"|"always-multi-line(多行规则之前必须始终有一个空行)"|"never-multi-line(多行规则之前绝不能有空行。)"
+      "font-family-no-missing-generic-family-keyword": null, // 禁止在字体族名称列表中缺少通用字体族关键字
+      "block-opening-brace-space-before": "always", // 要求在块的开大括号之前必须有一个空格或不能有空白符 "always(大括号前必须始终有一个空格)"|"never(左大括号之前绝不能有空格)"|"always-single-line(在单行块中的左大括号之前必须始终有一个空格)"|"never-single-line(在单行块中的左大括号之前绝不能有空格)"|"always-multi-line(在多行块中，左大括号之前必须始终有一个空格)"|"never-multi-line(多行块中的左大括号之前绝不能有空格)"
+      "property-no-unknown": null, // 禁止未知的属性(true 为不允许)
+      "no-empty-source": null, // 禁止空源码
+      "declaration-block-trailing-semicolon": null, // 要求或不允许在声明块中使用尾随分号 string："always(必须始终有一个尾随分号)"|"never(不得有尾随分号)"
+      "selector-class-pattern": null, // 强制选择器类名的格式
+      "value-no-vendor-prefix": null, // 关闭 vendor-prefix(为了解决多行省略 -webkit-box)
+      "at-rule-no-unknown": null,
+      "selector-pseudo-class-no-unknown": [
+        true,
+        {
+          ignorePseudoClasses: ["global", "v-deep", "deep"]
+        }
+      ]
+    }
+     */
+    'selector-class-pattern': [
+      // 命名规范 -
+      '^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
+      {
+        message: 'Expected class selector to be kebab-case'
+      }
+    ],
+    'string-quotes': 'double', // 单引号
+    'at-rule-empty-line-before': null,
+    'at-rule-no-unknown': null,
+    'at-rule-name-case': 'lower', // 指定@规则名的大小写
+    'length-zero-no-unit': true, // 禁止零长度的单位（可自动修复）
+    'shorthand-property-no-redundant-values': true, // 简写属性
+    'number-leading-zero': 'always', // 小数不带0
+    'declaration-block-no-duplicate-properties': true, // 禁止声明快重复属性
+    'no-descending-specificity': true, // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器。
+    'selector-max-id': null, // 限制一个选择器中 ID 选择器的数量
+    'max-nesting-depth': 10,
+    'declaration-block-single-line-max-declarations': 1,
+    'block-opening-brace-space-before': 'always',
+    // 'selector-max-type': [0, { ignore: ['child', 'descendant', 'compounded'] }],
+    indentation: [
+      2,
+      {
+        // 指定缩进  warning 提醒
+        severity: 'warning'
+      }
+    ],
+    'order/order': ['custom-properties', 'dollar-variables', 'declarations', 'rules', 'at-rules'],
+    'order/properties-order': [
+      // 规则顺序
+      'position',
+      'top',
+      'right',
+      'bottom',
+      'left',
+      'z-index',
+      'display',
+      'float',
+      'width',
+      'height',
+      'max-width',
+      'max-height',
+      'min-width',
+      'min-height',
+      'padding',
+      'padding-top',
+      'padding-right',
+      'padding-bottom',
+      'padding-left',
+      'margin',
+      'margin-top',
+      'margin-right',
+      'margin-bottom',
+      'margin-left',
+      'margin-collapse',
+      'margin-top-collapse',
+      'margin-right-collapse',
+      'margin-bottom-collapse',
+      'margin-left-collapse',
+      'overflow',
+      'overflow-x',
+      'overflow-y',
+      'clip',
+      'clear',
+      'font',
+      'font-family',
+      'font-size',
+      'font-smoothing',
+      'osx-font-smoothing',
+      'font-style',
+      'font-weight',
+      'line-height',
+      'letter-spacing',
+      'word-spacing',
+      'color',
+      'text-align',
+      'text-decoration',
+      'text-indent',
+      'text-overflow',
+      'text-rendering',
+      'text-size-adjust',
+      'text-shadow',
+      'text-transform',
+      'word-break',
+      'word-wrap',
+      'white-space',
+      'vertical-align',
+      'list-style',
+      'list-style-type',
+      'list-style-position',
+      'list-style-image',
+      'pointer-events',
+      'cursor',
+      'background',
+      'background-color',
+      'border',
+      'border-radius',
+      'content',
+      'outline',
+      'outline-offset',
+      'opacity',
+      'filter',
+      'visibility',
+      'size',
+      'transform'
+    ]
+  }
+}
+
 ```
 ```
 # .stylelintignore
 
-node_modules/
-dist/
+dist
+public
+env
+build
+.vscode
+.husky
+.DS_Store
+.github
+typings
+README.md
+node_modules
+// .stylelintignore
+*.js
+*.tsx
+*.ts
+*.json
+*.png
+*.eot
+*.ttf
+*.woff
+
+
 ```
-### 5.3 配置 .vscode/settings.json
+### 配置 .vscode/settings.json
 在 VS Code 项目设置中配置 **settings.json**，启用 stylelint 插件，并关联 **.stylelintrc.js** 配置文件。
 ```json
 
@@ -163,27 +320,120 @@ dist/
   "stylelint.ignorePatterns": ["node_modules/", "dist/"]
 }
 ```
-## 6. eslint
-### 6.1 安装 eslint 插件和包
+## eslint
+### 安装 eslint 插件和包
 使用 eslint 插件和相关包，实现对 JavaScript 文件的语法检测。
 ```bash
 # 安装 ESLint
 npm install eslint eslint-plugin-import eslint-config-prettier eslint-plugin-prettier --save-dev
 ```
-### 6.2 新建 .eslintrc.js
+### 新建 .eslintrc.js
 创建 **.eslintrc.js** 文件，定义 eslint 的配置规则。
 ```
 // .eslintrc.js
-
 module.exports = {
-  extends: ['eslint:recommended', 'plugin:import/errors', 'plugin:import/warnings', 'prettier'],
-  plugins: ['prettier'],
-  rules: {
-    'prettier/prettier': 'error',
+  env: {
+    browser: true,
+    es2021: true,
+    node: true
   },
-};
+  extends: [
+    'airbnb-base',
+    'eslint:recommended',
+    'plugin:import/recommended',
+    'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier'
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module'
+  },
+  plugins: ['react', '@typescript-eslint', 'prettier'],
+  rules: {
+    // eslint (http://eslint.cn/docs/rules)
+    'global-require': 'off',
+    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    'class-methods-use-this': 'off',
+    'no-param-reassign': 'off',
+    'no-unused-expressions': 'off',
+    'no-plusplus': 0,
+    'no-restricted-syntax': 0,
+    'consistent-return': 0,
+    '@typescript-eslint/ban-types': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    'import/no-unresolved': 'off',
+    'import/prefer-default-export': 'off', // 关闭默认使用 export default 方式导出
+    '@typescript-eslint/no-use-before-define': 0,
+    'no-use-before-define': 0,
+    '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-namespace': 'off', // 禁止使用自定义 TypeScript 模块和命名空间。
+    'no-shadow': 'off',
+    // "@typescript-eslint/no-var-requires": "off"
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        '': 'never',
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never'
+      }
+    ]
+    // "no-var": "error", // 要求使用 let 或 const 而不是 var
+    // "no-multiple-empty-lines": ["error", { max: 1 }], // 不允许多个空行
+    // "no-use-before-define": "off", // 禁止在 函数/类/变量 定义之前使用它们
+    // "prefer-const": "off", // 此规则旨在标记使用 let 关键字声明但在初始分配后从未重新分配的变量，要求使用 const
+    // "no-irregular-whitespace": "off", // 禁止不规则的空白
+
+    // // typeScript (https://typescript-eslint.io/rules)
+    // "@typescript-eslint/no-unused-vars": "error", // 禁止定义未使用的变量
+    // "@typescript-eslint/no-inferrable-types": "off", // 可以轻松推断的显式类型可能会增加不必要的冗长
+    // "@typescript-eslint/no-namespace": "off", // 禁止使用自定义 TypeScript 模块和命名空间。
+    // "@typescript-eslint/no-explicit-any": "off", // 禁止使用 any 类型
+    // "@typescript-eslint/ban-ts-ignore": "off", // 禁止使用 @ts-ignore
+    // "@typescript-eslint/ban-types": "off", // 禁止使用特定类型
+    // "@typescript-eslint/explicit-function-return-type": "off", // 不允许对初始化为数字、字符串或布尔值的变量或参数进行显式类型声明
+    // "@typescript-eslint/no-var-requires": "off", // 不允许在 import 语句中使用 require 语句
+    // "@typescript-eslint/no-empty-function": "off", // 禁止空函数
+    // "@typescript-eslint/no-use-before-define": "off", // 禁止在变量定义之前使用它们
+    // "@typescript-eslint/ban-ts-comment": "off", // 禁止 @ts-<directive> 使用注释或要求在指令后进行描述
+    // "@typescript-eslint/no-non-null-assertion": "off", // 不允许使用后缀运算符的非空断言(!)
+    // "@typescript-eslint/explicit-module-boundary-types": "off", // 要求导出函数和类的公共类方法的显式返回和参数类型
+
+    // // react (https://github.com/jsx-eslint/eslint-plugin-react)
+    // "react-hooks/rules-of-hooks": "error",
+    // "react-hooks/exhaustive-deps": "off"
+  },
+  settings: {
+    settings: {
+      react: {
+        version: 'detect'
+      }
+    },
+    'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx']
+    },
+    'import/resolver': {
+      node: {
+        paths: ['src'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src/']
+      }
+    }
+  }
+}
+
 ```
-### 6.3 新建 .eslintignore
+### 新建 .eslintignore
 创建 **.eslintignore** 文件，配置要忽略的文件或目录。
 ```
 
@@ -192,7 +442,7 @@ module.exports = {
 node_modules/
 dist/
 ```
-### 6.4 添加 eslint 语法检测脚本
+### 添加 eslint 语法检测脚本
 在 **package.json** 中添加 eslint 的检测脚本命令。
 ```
 
@@ -202,20 +452,20 @@ dist/
   "lint": "eslint . --fix"
 }
 ```
-### 6.5 eslint 与 prettier 冲突
+### eslint 与 prettier 冲突
 解决 eslint 与 prettier 的格式化规则冲突。
 ```bash
 # 安装 eslint-config-prettier
 npm install eslint-config-prettier --save-dev
 ```
-## 7. husky + lint-staged
-### 7.1 使用 lint-staged 优化 eslint 检测速度
+## husky + lint-staged
+### 使用 lint-staged 优化 eslint 检测速度
 通过 lint-staged 工具，优化只检测本次提交的文件，而不是整个项目。
 ```bash
 # 安装 lint-staged
 npm install lint-staged --save-dev
 ```
-### 7.2 使用 tsc 检测类型和报错
+### 使用 tsc 检测类型和报错
 通过 TypeScript 的编译器 tsc，在提交前检测类型和报错。
 ```bash
 # 安装 TypeScript
@@ -223,20 +473,20 @@ npm install typescript --save-dev
 # 初始化 tsconfig.json
 npx tsc --init
 ```
-### 7.3 配置 husky
-#### 7.3.1 代码提交前 husky 检测语法
+### 配置 husky
+#### 代码提交前 husky 检测语法
 通过 husky 和 lint-staged，在代码提交前进行 eslint 和 tsc 的检测。
 ```bash
 # 安装 husky
 npm install husky --save-dev
 ```
-#### 7.3.2 安装 husky
+#### 安装 husky
 通过 husky，在提交前检测语法。
 ```bash
 # 安装 husky
 npm install husky --save-dev
 ```
-#### 7.3.3 配置 husky 的 pre-commit 钩子
+#### 配置 husky 的 pre-commit 钩子
 ```json
 // package.json
 
@@ -246,16 +496,16 @@ npm install husky --save-dev
   }
 }
 ```
-## 8. Commit 信息的 Linter - Commitlint
-### 8.1 安装 Commitlint
+## Commit 信息的 Linter - Commitlint
+### 安装 Commitlint
 使用 Commitlint 工具，对提交信息进行规范检测。
 ```bash
 # 安装 Commitlint
 npm install @commitlint/cli @commitlint/config-conventional --save-dev
 ```
-### 8.2 使用 Commitlint
+### 使用 Commitlint
 在提交时，Commitlint 会检测提交信息是否符合规范。
-### 8.3 配置规则包
+### 配置规则包
 创建 **commitlint.config.js** 文件，配置 Commitlint 的规则包。
 ```jsx
 // commitlint.config.js
@@ -264,7 +514,7 @@ module.exports = {
   extends: ['@commitlint/config-conventional'],
 };
 ```
-### 8.4 使用 Husky 为 Commitlint 注册 Git Hooks
+### 使用 Husky 为 Commitlint 注册 Git Hooks
 通过 husky，在提交前使用 Commitlint 进行提交信息的规范检测。
 ```json
 // package.json
@@ -275,42 +525,186 @@ module.exports = {
   }
 }
 ```
-## 9. Commitizen
-### 9.1 cz-git
+## Commitizen
+### cz-git
 使用 cz-git 工具，规范化生成提交信息。
 ```bash
 # 安装 Commitizen 和 cz-git
 npm install commitizen cz-git --save-dev
 ```
-### 9.2 配置 commitlint.config.js 文件
+### 配置 commitlint.config.js 文件
 在 **commitlint.config.js** 文件中配置 Commitizen 的适配器。
 ```jsx
 // commitlint.config.js
 
-module.exports = {
-  extends: ['cz'],
-};
-```
-### 9.3 一键提交
-通过 **npm run commit** 一键生成规范的提交信息。
-## 10. change-log
-### 10.1 简单使用
-通过 standard-version 工具，简单生成 change-log。
-```bash
-# 安装 standard-version
-npm install standard-version --save-dev
-```
-### 10.2 高级用法
-#### 10.2.1 这个东西可以做什么?
-了解 change-log 的功能和用途。
-#### 10.2.2 自动升级版本
-配置 change-log，实现自动升级版本的功能。
-#### 10.2.3 手动控制版本更新
-通过 change-log，手动控制项目版本的更新。
-#### 10.2.4 配置哪些 commit 消息写入 changelog
-在配置文件中定义哪些类型的 commit 消息写入 changelog。
-#### 10.2.5 配置跳过生成 changelog 这个
-通过配置，跳过特定情况下的 changelog 生成。
-## 总结
-通过上述步骤，我们建立了一个完善的开发环境，包括了代码格式规范、语法检测、提交规范、Git Hooks、Commitlint、Commitizen 以及 changelog 自动生成等方面的配置和工具的使用，从而提高了代码质量和开发效率。
+// @see: https://cz-git.qbenben.com/zh/guide
+/** @type {import('cz-git').UserConfig} */
 
+module.exports = {
+  ignores: [commit => commit.includes('init')],
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    // @see: https://commitlint.js.org/#/reference-rules
+    'body-leading-blank': [2, 'always'],
+    'footer-leading-blank': [1, 'always'],
+    'header-max-length': [2, 'always', 108],
+    'subject-empty': [2, 'never'],
+    'type-empty': [2, 'never'],
+    'subject-case': [0],
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'build',
+        'ci',
+        'chore',
+        'revert',
+        'wip',
+        'workflow',
+        'types',
+        'release'
+      ]
+    ]
+  },
+  prompt: {
+    messages: {
+      type: "Select the type of change that you're committing:",
+      scope: 'Denote the SCOPE of this change (optional):',
+      customScope: 'Denote the SCOPE of this change:',
+      subject: 'Write a SHORT, IMPERATIVE tense description of the change:\n',
+      body: 'Provide a LONGER description of the change (optional). Use "|" to break new line:\n',
+      breaking: 'List any BREAKING CHANGES (optional). Use "|" to break new line:\n',
+      footerPrefixsSelect: 'Select the ISSUES type of changeList by this change (optional):',
+      customFooterPrefixs: 'Input ISSUES prefix:',
+      footer: 'List any ISSUES by this change. E.g.: #31, #34:\n',
+      confirmCommit: 'Are you sure you want to proceed with the commit above?'
+      // 中文版
+      // type: "选择你要提交的类型 :",
+      // scope: "选择一个提交范围（可选）:",
+      // customScope: "请输入自定义的提交范围 :",
+      // subject: "填写简短精炼的变更描述 :\n",
+      // body: '填写更加详细的变更描述（可选）。使用 "|" 换行 :\n',
+      // breaking: '列举非兼容性重大的变更（可选）。使用 "|" 换行 :\n',
+      // footerPrefixsSelect: "选择关联issue前缀（可选）:",
+      // customFooterPrefixs: "输入自定义issue前缀 :",
+      // footer: "列举关联issue (可选) 例如: #31, #I3244 :\n",
+      // confirmCommit: "是否提交或修改commit ?"
+    },
+    types: [
+      {
+        value: 'feat',
+        name: 'feat:     🚀  A new feature',
+        emoji: '🚀'
+      },
+      {
+        value: 'fix',
+        name: 'fix:      🧩  A bug fix',
+        emoji: '🧩'
+      },
+      {
+        value: 'docs',
+        name: 'docs:     📚  Documentation only changes',
+        emoji: '📚'
+      },
+      {
+        value: 'style',
+        name: 'style:    🎨  Changes that do not affect the meaning of the code',
+        emoji: '🎨'
+      },
+      {
+        value: 'refactor',
+        name: 'refactor: ♻️   A code change that neither fixes a bug nor adds a feature',
+        emoji: '♻️'
+      },
+      {
+        value: 'perf',
+        name: 'perf:     ⚡️  A code change that improves performance',
+        emoji: '⚡️'
+      },
+      {
+        value: 'test',
+        name: 'test:     ✅  Adding missing tests or correcting existing tests',
+        emoji: '✅'
+      },
+      {
+        value: 'build',
+        name: 'build:    📦️   Changes that affect the build system or external dependencies',
+        emoji: '📦️'
+      },
+      {
+        value: 'ci',
+        name: 'ci:       🎡  Changes to our CI configuration files and scripts',
+        emoji: '🎡'
+      },
+      {
+        value: 'chore',
+        name: "chore:    🔨  Other changes that don't modify src or test files",
+        emoji: '🔨'
+      },
+      {
+        value: 'revert',
+        name: 'revert:   ⏪️  Reverts a previous commit',
+        emoji: '⏪️'
+      }
+      // 中文版
+      // { value: "特性", name: "特性:   🚀  新增功能", emoji: "🚀" },
+      // { value: "修复", name: "修复:   🧩  修复缺陷", emoji: "🧩" },
+      // { value: "文档", name: "文档:   📚  文档变更", emoji: "📚" },
+      // { value: "格式", name: "格式:   🎨  代码格式（不影响功能，例如空格、分号等格式修正）", emoji: "🎨" },
+      // { value: "重构", name: "重构:   ♻️  代码重构（不包括 bug 修复、功能新增）", emoji: "♻️" },
+      // { value: "性能", name: "性能:   ⚡️  性能优化", emoji: "⚡️" },
+      // { value: "测试", name: "测试:   ✅  添加疏漏测试或已有测试改动", emoji: "✅" },
+      // { value: "构建", name: "构建:   📦️  构建流程、外部依赖变更（如升级 npm 包、修改 webpack 配置等）", emoji: "📦️" },
+      // { value: "集成", name: "集成:   🎡  修改 CI 配置、脚本", emoji: "🎡" },
+      // { value: "回退", name: "回退:   ⏪️  回滚 commit", emoji: "⏪️" },
+      // { value: "其他", name: "其他:   🔨  对构建过程或辅助工具和库的更改（不影响源文件、测试用例）", emoji: "🔨" }
+    ],
+    useEmoji: true,
+    themeColorCode: '',
+    scopes: [],
+    allowCustomScopes: true,
+    allowEmptyScopes: true,
+    customScopesAlign: 'bottom',
+    customScopesAlias: 'custom',
+    emptyScopesAlias: 'empty',
+    upperCaseSubject: false,
+    allowBreakingChanges: ['feat', 'fix'],
+    breaklineNumber: 100,
+    breaklineChar: '|',
+    skipQuestions: [],
+    issuePrefixs: [{ value: 'closed', name: 'closed:   ISSUES has been processed' }],
+    customIssuePrefixsAlign: 'top',
+    emptyIssuePrefixsAlias: 'skip',
+    customIssuePrefixsAlias: 'custom',
+    allowCustomIssuePrefixs: true,
+    allowEmptyIssuePrefixs: true,
+    confirmColorize: true,
+    maxHeaderLength: Infinity,
+    maxSubjectLength: Infinity,
+    minSubjectLength: 0,
+    scopeOverrides: undefined,
+    defaultBody: '',
+    defaultIssues: '',
+    defaultScope: '',
+    defaultSubject: ''
+  }
+}
+
+```
+### 一键提交
+通过 **npm run commit** 一键生成规范的提交信息。
+
+## 总结
+通过上述步骤，我们建立了一个完善的开发环境，包括了代码格式规范、语法检测、提交规范、Git Hooks、Commitlint、Commitizen 等方面的配置和工具的使用，从而提高了代码质量和开发效率。
+
+**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
+
+
+  

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "sync:local": "elog sync -e .env && node convertMdx.mjs",
+    "sync:local": "elog sync -e .env && node ./core/format/transformMdx.mjs",
     "sync": "elog sync",
     "clean": "elog clean"
   },

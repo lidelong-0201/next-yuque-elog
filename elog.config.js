@@ -31,7 +31,7 @@ module.exports = {
     flowus: {
       tablePageId: process.env.FLOWUS_TABLE_PAGE_ID,
       filter: false, // {property: 'status',value: '已发布'}
-    }
+    },
   },
   deploy: {
     platform: 'local',
@@ -40,7 +40,7 @@ module.exports = {
       filename: 'urlname',
       format: 'markdown',
       catalog: true,
-      formatExt: './elog.format.js'
+      formatExt: './core/format/formatDoc.js',
     },
     halo: {
       endpoint: process.env.HALO_ENDPOINT,
@@ -60,14 +60,14 @@ module.exports = {
       username: process.env.WORDPRESS_USERNAME,
       password: process.env.WORDPRESS_PASSWORD,
       endpoint: process.env.WORDPRESS_ENDPOINT,
-    }
+    },
   },
   image: {
     enable: true,
     platform: 'local',
     local: {
-      outputDir: './src/images/articles',
-      prefixKey: '../../images/articles',
+      outputDir: './public/images/articles',
+      prefixKey: '/images/articles',
       pathFollowDoc: false,
     },
     oss: {
@@ -106,6 +106,6 @@ module.exports = {
       token: process.env.GITHUB_TOKEN,
       repo: process.env.GITHUB_REPO,
       prefixKey: '',
-    }
-  }
+    },
+  },
 }

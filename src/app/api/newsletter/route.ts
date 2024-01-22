@@ -1,5 +1,4 @@
 import { type NextRequest, NextResponse } from 'next/server'
-import { log } from 'node:util'
 
 export const POST = async (request: NextRequest) => {
   const data = await request.json()

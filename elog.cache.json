@@ -1,0 +1,100 @@
+{
+  "docs": [
+    {
+      "id": 156393124,
+      "doc_id": "gicvi8mz8xo94sfy",
+      "updated": 1705909616000,
+      "properties": {
+        "title": "搭建webpack项目（代码质量）",
+        "urlname": "gicvi8mz8xo94sfy",
+        "date": "2024-01-18 11:46:36",
+        "updated": "2024-01-22 15:46:56",
+        "description": "[description](在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，规范化代码格式、语法检测以及提交流程，以提升开发团队的协同工作。)在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，..."
+      },
+      "catalog": [],
+      "realName": "gicvi8mz8xo94sfy",
+      "relativePath": "/gicvi8mz8xo94sfy.md",
+      "docPath": "src/app/articles"
+    },
+    {
+      "id": 156380535,
+      "doc_id": "gs086u08zl5rgb1d",
+      "updated": 1705560093000,
+      "properties": {
+        "title": "搭建Webpack项目（初始化）",
+        "urlname": "gs086u08zl5rgb1d",
+        "date": "2024-01-18 10:36:10",
+        "updated": "2024-01-18 14:41:33",
+        "description": "[description](介绍了从零开始搭建Webpack5项目的过程，包括项目初始化、Webpack配置文件、TypeScript和React的集成、样式处理、静态资源处理、HtmlWebpackPlugin的使用、开发服务器配置、生产环境优化以及Babel的集成。通过这些步骤，建立了一个..."
+      },
+      "catalog": [],
+      "realName": "gs086u08zl5rgb1d",
+      "relativePath": "/gs086u08zl5rgb1d.md",
+      "docPath": "src/app/articles"
+    },
+    {
+      "id": 156388848,
+      "doc_id": "khsqdw6gilvle20i",
+      "updated": 1705560082000,
+      "properties": {
+        "title": "搭建Webpack项目（基础配置）",
+        "urlname": "khsqdw6gilvle20i",
+        "date": "2024-01-18 11:18:55",
+        "updated": "2024-01-18 14:41:22",
+        "cover": "https://cdn.nlark.com/yuque/0/2024/webp/25520344/1705548432304-cf8d3910-a3c5-48bb-b18e-ac49f5ba8357.webp",
+        "description": "[description](构建耗时监控、持久化存储缓存、多线程 Loader、缩小构建目标以及 DevTools 配置等方面。其中，配置自定义记者数组用于在构建阶段执行特定操作，speed-measure-webpack-plugin 用于监控构建耗时。在 webpack5 中，通过持久化缓..."
+      },
+      "catalog": [],
+      "realName": "khsqdw6gilvle20i",
+      "relativePath": "/khsqdw6gilvle20i.md",
+      "docPath": "src/app/articles"
+    }
+  ],
+  "catalog": [
+    {
+      "type": "DOC",
+      "title": "搭建webpack项目（代码质量）",
+      "uuid": "7uOyVb_bQuGMOkV9",
+      "url": "gicvi8mz8xo94sfy",
+      "prev_uuid": "",
+      "sibling_uuid": "9iL8v3HtcY8Pweyq",
+      "child_uuid": "",
+      "parent_uuid": "",
+      "doc_id": 156393124,
+      "level": 0,
+      "id": 156393124,
+      "open_window": 1,
+      "visible": 1
+    },
+    {
+      "type": "DOC",
+      "title": "搭建Webpack项目（基础配置）",
+      "uuid": "9iL8v3HtcY8Pweyq",
+      "url": "khsqdw6gilvle20i",
+      "prev_uuid": "7uOyVb_bQuGMOkV9",
+      "sibling_uuid": "18iYYIHMPSxY7_NE",
+      "child_uuid": "",
+      "parent_uuid": "",
+      "doc_id": 156388848,
+      "level": 0,
+      "id": 156388848,
+      "open_window": 1,
+      "visible": 1
+    },
+    {
+      "type": "DOC",
+      "title": "搭建Webpack项目（初始化）",
+      "uuid": "18iYYIHMPSxY7_NE",
+      "url": "gs086u08zl5rgb1d",
+      "prev_uuid": "9iL8v3HtcY8Pweyq",
+      "sibling_uuid": "",
+      "child_uuid": "",
+      "parent_uuid": "",
+      "doc_id": 156380535,
+      "level": 0,
+      "id": 156380535,
+      "open_window": 1,
+      "visible": 1
+    }
+  ]
+}

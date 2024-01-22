@@ -1,4 +1,4 @@
-import logoPlanetaria from '@/images/logos/planetaria.svg'
+import logoPlanetaria from 'public/images/logos/planetaria.svg'
 
 export interface ProjectType {
   name: string

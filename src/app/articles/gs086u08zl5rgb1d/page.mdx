@@ -1,21 +1,21 @@
+
 import { ArticleLayout } from '@/components/ArticleLayout';
-import Image from 'next/image'
 
 export const article = {
-  author: 'delong',
-  date:"2024-01-18 10:36:10",
-  title: "搭建Webpack项目（初始化）",
-  description:"[description](介绍了从零开始搭建Webpack5项目的过程，包括项目初始化、Webpack配置文件、TypeScript和React的集成、样式处理、静态资源处理、HtmlWebpackPlugin的使用、开发服务器配置、生产环境优化以及Babel的集成。通过这些步骤，建立了一个...",
-};
-
+    author: 'delong',
+    date: "2024-01-18 10:36:10",
+    title: "搭建Webpack项目（初始化）",
+    description: "介绍了从零开始搭建Webpack5项目的过程，包括项目初始化、Webpack配置文件、TypeScript和React的集成、样式处理、静态资源处理、HtmlWebpackPlugin的使用、开发服务器配置、生产环境优化以及Babel的集成。通过这些步骤，建立了一个基础的Webpack5项目，并提供了现代前端开发所需的基本配置。",
+  };
+  
 export const metadata = {
-  title: article.title,
-  description: article.description,
+    title: article.title,
+    description: article.description,
 };
-
+  
 export default (props) => <ArticleLayout article={article} {...props} />;
 
-[description](介绍了从零开始搭建Webpack5项目的过程，包括项目初始化、Webpack配置文件、TypeScript和React的集成、样式处理、静态资源处理、HtmlWebpackPlugin的使用、开发服务器配置、生产环境优化以及Babel的集成。通过这些步骤，建立了一个基础的Webpack5项目，并提供了现代前端开发所需的基本配置。)<br />**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
+<br />**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
 ## 项目初始化
 在开始我们的React项目之旅之前，我们首先要进行项目初始化。在这一部分，我们将关注依赖管理，而我们选择的工具是 **pnpm**。
 ### 为什么选择pnpm？
@@ -671,3 +671,7 @@ devServer.start().then(() => {
 export default devConfig;
 ```
 通过以上配置，项目在重启时将在同一个浏览器 Tab 中打开页面，提高开发体验。
+
+**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
+
+  
