@@ -1,14 +1,31 @@
 {
   "docs": [
     {
+      "id": 157043138,
+      "doc_id": "aq03gghvtipp4rdq",
+      "updated": 1706860632000,
+      "properties": {
+        "title": "mini-react",
+        "urlname": "aq03gghvtipp4rdq",
+        "date": "2024-01-24 15:58:07",
+        "updated": "2024-02-02 15:57:12",
+        "cover": "https://cdn.nlark.com/yuque/0/2024/png/25520344/1706776674875-8a6542b5-82a7-42ed-a1b0-827511ccb115.png",
+        "description": "[description](300行实现一个自己的mini-react)300行搭建一个自己的mini-reactjsxrequestIdlcallbackfiberdiffuseStateuseEffect贴上 github-repo https://github.com/lidelong-..."
+      },
+      "catalog": [],
+      "realName": "aq03gghvtipp4rdq",
+      "relativePath": "/aq03gghvtipp4rdq.md",
+      "docPath": "src/app/articles"
+    },
+    {
       "id": 156393124,
       "doc_id": "gicvi8mz8xo94sfy",
-      "updated": 1705909616000,
+      "updated": 1706860634000,
       "properties": {
         "title": "搭建webpack项目（代码质量）",
         "urlname": "gicvi8mz8xo94sfy",
         "date": "2024-01-18 11:46:36",
-        "updated": "2024-01-22 15:46:56",
+        "updated": "2024-02-02 15:57:14",
         "description": "[description](在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，规范化代码格式、语法检测以及提交流程，以提升开发团队的协同工作。)在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，..."
       },
       "catalog": [],
@@ -53,10 +70,25 @@
   "catalog": [
     {
       "type": "DOC",
+      "title": "mini-react",
+      "uuid": "ea0yWG6J1tp0KWtc",
+      "url": "aq03gghvtipp4rdq",
+      "prev_uuid": "",
+      "sibling_uuid": "7uOyVb_bQuGMOkV9",
+      "child_uuid": "",
+      "parent_uuid": "",
+      "doc_id": 157043138,
+      "level": 0,
+      "id": 157043138,
+      "open_window": 1,
+      "visible": 1
+    },
+    {
+      "type": "DOC",
       "title": "搭建webpack项目（代码质量）",
       "uuid": "7uOyVb_bQuGMOkV9",
       "url": "gicvi8mz8xo94sfy",
-      "prev_uuid": "",
+      "prev_uuid": "ea0yWG6J1tp0KWtc",
       "sibling_uuid": "9iL8v3HtcY8Pweyq",
       "child_uuid": "",
       "parent_uuid": "",
