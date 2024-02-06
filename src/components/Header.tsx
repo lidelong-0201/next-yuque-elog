@@ -10,6 +10,7 @@ import clsx from 'clsx'
 
 import { Container } from '@/components/Container'
 import avatarImage from 'public/images/avatar.jpg'
+import DocSearch from './DocSearch'
 
 function CloseIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -437,8 +438,12 @@ export function Header() {
                 <MobileNavigation className="pointer-events-auto md:hidden" />
                 <DesktopNavigation className="pointer-events-auto hidden md:block" />
               </div>
+
               <div className="flex justify-end md:flex-1">
-                <div className="pointer-events-auto">
+                <div className="pointer-events-auto px-3">
+                  <DocSearch />
+                </div>
+                <div className="pointer-events-auto px-3">
                   <ThemeToggle />
                 </div>
               </div>
