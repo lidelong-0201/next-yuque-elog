@@ -16,6 +16,7 @@ export const metadata = {
 export default (props) => <ArticleLayout article={article} {...props} />;
 
 
+
 ## 300行搭建一个自己的mini-react
 > - jsx
 > - requestIdlcallback
@@ -26,6 +27,7 @@ export default (props) => <ArticleLayout article={article} {...props} />;
 > 
 贴上 github-repo [https://github.com/lidelong-0201/mini-react](https://github.com/lidelong-0201/mini-react)
 
+
 ## jsx
 首先看一下jsx，jsx是**React.createElement**的语法糖，我们平时写jsx时会被webpack脚手架的[**@babel/preset-reac**t](https://babeljs.io/docs/babel-preset-react)或vite脚手架的[**@vitejs/plugin-vue-jsx**](https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue-jsx)** **等进行转换，（转换配置可以看一下，之前实现搭建webpack的代码库：[repo](https://github.com/lidelong-0201/dl-react-webpack)）
 ```javascript
@@ -33,9 +35,11 @@ export default (props) => <ArticleLayout article={article} {...props} />;
 //会被处理成
 React.createElemnt('div',{id='app'},'app')
 ```
-**例如，我在程序中写了一个打印foo的log，处理之后的打印是这样的**<br />![image.png](/images/articles/c0f417a492d19abb2b6e8473c20caef9.png)
+**例如，我在程序中写了一个打印foo的log，处理之后的打印是这样的**
+![image.png](/images/articles/c0f417a492d19abb2b6e8473c20caef9.png)
 
 ![image.png](/images/articles/6659d571b24465b8a23189feaa0ae504.png)
+
 ### 来实现React.createElemnt与createTextNode
 
 下面贴上实现代码
@@ -62,6 +66,7 @@ function createElement(type, props, ...children) {
   };
 }
 ```
+
 
 
 ## fiber
@@ -91,11 +96,16 @@ fiber的能力
 
 ![image-transformed.png](/images/articles/58f09c6c86ed056778fbf373e52b7ef7.png)
 
+
 ## requestIdleCallback
+
 ### 问题
 当有大量dom需要同时渲染的时候，直接去渲染会造成浏览器卡顿被用户所感知
+
 ### 分析问题
-页面是一帧一帧绘制出来的，当每秒绘制的帧数（FPS）达到 60 时，页面是流畅的，小于这个值时，用户会感觉到卡顿。<br />浏览器每一帧都需要完成<br />![image.png](/images/articles/936e7ca526923329bf4fd8cf569eb6a9.png)
+页面是一帧一帧绘制出来的，当每秒绘制的帧数（FPS）达到 60 时，页面是流畅的，小于这个值时，用户会感觉到卡顿。
+浏览器每一帧都需要完成
+![image.png](/images/articles/936e7ca526923329bf4fd8cf569eb6a9.png)
 
 - 处理用户的交互
 - JS 解析执行
@@ -103,8 +113,13 @@ fiber的能力
 - rAF
 - 布局
 - 绘制
+
 ### 解决问题
-<br />构建workCallback 函数是一个工作回调函数，它接收一个 deadLine 参数。在函数内部，我们使用一个 while 循环来执行工作单元的任务，直到达到 shouldYield 的条件或者没有下一个工作单元为止。如果 wipRoot 的兄弟节点的类型与 nextWorkOfUnit 的类型相同，我们将 nextWorkOfUnit 设为 null。shouldYield 的值是根据 deadLine.timeRemaining() 是否小于 1 来判断的。如果满足条件，即剩余时间小于 1，shouldYield 将设为 true。<br />如果 nextWorkOfUnit 为 null 且 wipRoot 不为 null，则执行 commitRoot()，进行渲染操作。<br />最后，我们使用 window.requestIdleCallback(workCallback) 来请求下一个空闲时间段执行 workCallback。<br />![image.png](/images/articles/25147440ddcc680c06410ce5fd65f288.png)
+
+构建workCallback 函数是一个工作回调函数，它接收一个 deadLine 参数。在函数内部，我们使用一个 while 循环来执行工作单元的任务，直到达到 shouldYield 的条件或者没有下一个工作单元为止。如果 wipRoot 的兄弟节点的类型与 nextWorkOfUnit 的类型相同，我们将 nextWorkOfUnit 设为 null。shouldYield 的值是根据 deadLine.timeRemaining() 是否小于 1 来判断的。如果满足条件，即剩余时间小于 1，shouldYield 将设为 true。
+如果 nextWorkOfUnit 为 null 且 wipRoot 不为 null，则执行 commitRoot()，进行渲染操作。
+最后，我们使用 window.requestIdleCallback(workCallback) 来请求下一个空闲时间段执行 workCallback。
+![image.png](/images/articles/25147440ddcc680c06410ce5fd65f288.png)
 
 具体实现代码
 ```tsx
@@ -124,10 +139,15 @@ const workCallback = (deadLine) => {
   window.requestIdleCallback(workCallback)
 ```
 
+
 ## Diff
-在 React 进行双树对比时，会根据 alternate 属性来找到当前的 Fiber 节点。<br />目前实现了组件 diff 和元素 diff。<br />在对比组件时，判断是否为同一个组件。如果不是同一个组件，会在调和节点上打上 effectTag 标签，以进行删除并重新创建节点。<br />在对比元素时，判断当前属性 props 是否相同，是否需要更新。如果需要更新，同样在调和节点上打上更新标签。如果判断出不同的 DOM 标签，例如从 ``<div>`` 变成了 ``<p>``，则进行删除并重新创建。
+在 React 进行双树对比时，会根据 alternate 属性来找到当前的 Fiber 节点。
+目前实现了组件 diff 和元素 diff。
+在对比组件时，判断是否为同一个组件。如果不是同一个组件，会在调和节点上打上 effectTag 标签，以进行删除并重新创建节点。
+在对比元素时，判断当前属性 props 是否相同，是否需要更新。如果需要更新，同样在调和节点上打上更新标签。如果判断出不同的 DOM 标签，例如从 ``<div>`` 变成了 ``<p>``，则进行删除并重新创建。
 
 ![image.png](/images/articles/6a79736f33c894d384849e551a57761e.png)
+
 ## useState
 实现useState 需要在fiber上构建stateHooks，通过index来判断是那个state，最后在统一提交节点进行更新
 ```tsx

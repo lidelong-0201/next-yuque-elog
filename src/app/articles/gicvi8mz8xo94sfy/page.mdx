@@ -15,7 +15,9 @@ export const metadata = {
   
 export default (props) => <ArticleLayout article={article} {...props} />;
 
-<br />在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，规范化代码格式、语法检测以及提交流程，以提升开发团队的协同工作。
+
+在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，规范化代码格式、语法检测以及提交流程，以提升开发团队的协同工作。
+
 ### 代码格式规范和语法检测工具
 在项目中使用代码格式规范和语法检测工具是确保代码质量的重要手段，它们有助于统一团队的代码风格，减少潜在的错误。
 ```bash
@@ -24,6 +26,7 @@ npm install eslint --save-dev
 # 初始化 ESLint 配置文件
 npx eslint --init
 ```
+
 ###  代码提交规范工具
 规范的代码提交流程对于代码管理和版本控制至关重要。使用代码提交规范工具可以确保提交信息的一致性，方便团队协作和版本追踪。
 ```bash
@@ -32,8 +35,11 @@ npm install @commitlint/cli @commitlint/config-conventional --save-dev
 # 初始化 Commitlint 配置文件
 echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
 ```
+
 ## editorconfig
-安装 EditorConfig for VS Code<br />在 VS Code 中安装 EditorConfig 插件，以便项目中的编辑器配置得到统一。
+安装 EditorConfig for VS Code
+在 VS Code 中安装 EditorConfig 插件，以便项目中的编辑器配置得到统一。
+
 ### 新建 .editorconfig
 创建 **.editorconfig** 文件，定义项目中的编辑器配置规则，例如缩进、换行符等。
 ```
@@ -52,13 +58,16 @@ trim_trailing_whitespace = true  # 删除一行中的前后空格
 trim_trailing_whitespace = false
 
 ```
+
 ##  prettier
+
 ###  安装 VS Code 插件和 prettier
 通过安装 VS Code 插件和 prettier 工具，实现代码的自动格式化。
 ```bash
 # 安装 Prettier
 npm install --save-dev --save-exact prettier
 ```
+
 ### 新建 .prettier.js
 创建 **.prettier.js** 文件，配置 prettier 的格式化规则。
 ```jsx
@@ -75,6 +84,7 @@ module.exports = {
 };
 
 ```
+
 ###  配置 .vscode/settings.json
 在 VS Code 中的项目设置中配置 **settings.json**，启用 prettier 插件，并关联 **.prettier.js** 配置文件。
 ```json
@@ -89,6 +99,7 @@ module.exports = {
   }
 }
 ```
+
 ### 脚本命令检查和修复格式
 通过配置脚本命令，在项目中使用 prettier 进行代码格式的检查和修复。
 ```json
@@ -100,7 +111,9 @@ module.exports = {
   "lint-fix": "eslint --fix src"
 }
 ```
+
 ## Markdownlint
+
 ### 安装 markdownlint-cli
 使用 markdownlint-cli 工具，实现对 Markdown 文件的语法检测。
 ```bash
@@ -108,6 +121,7 @@ module.exports = {
 # 安装 markdownlint-cli
 npm install -g markdownlint-cli
 ```
+
 ### 新建 .markdownlint.js
 创建 **.markdownlint.js** 文件，定义 Markdown 文件的语法检测规则。
 ```jsx
@@ -119,6 +133,7 @@ module.exports = {
   MD033: { allowed_elements: ['img'] }, // Inline HTML
 };
 ```
+
 ### 配置 .vscode/settings.json
 在 VS Code 项目设置中配置 **settings.json**，启用 markdownlint 插件，并关联 **.markdownlint.js** 配置文件。
 ```json
@@ -129,13 +144,16 @@ module.exports = {
   "markdownlint.config": "./.markdownlint.js"
 }
 ```
+
 ## stylelint
+
 ### 安装 stylelint 插件和依赖
 使用 stylelint 插件和相关依赖，实现对样式文件的语法检测。
 ```bash
 # 安装 stylelint
 npm install stylelint stylelint-config-standard stylelint-config-prettier stylelint-prettier --save-dev
 ```
+
 ### 新建 .stylelintrc.js 和 .stylelintignore
 创建 **.stylelintrc.js** 文件，定义 stylelint 的配置规则，并新建 **.stylelintignore** 文件，配置要忽略的文件或目录。
 ```jsx
@@ -309,6 +327,7 @@ node_modules
 
 
 ```
+
 ### 配置 .vscode/settings.json
 在 VS Code 项目设置中配置 **settings.json**，启用 stylelint 插件，并关联 **.stylelintrc.js** 配置文件。
 ```json
@@ -320,13 +339,16 @@ node_modules
   "stylelint.ignorePatterns": ["node_modules/", "dist/"]
 }
 ```
+
 ## eslint
+
 ### 安装 eslint 插件和包
 使用 eslint 插件和相关包，实现对 JavaScript 文件的语法检测。
 ```bash
 # 安装 ESLint
 npm install eslint eslint-plugin-import eslint-config-prettier eslint-plugin-prettier --save-dev
 ```
+
 ### 新建 .eslintrc.js
 创建 **.eslintrc.js** 文件，定义 eslint 的配置规则。
 ```
@@ -433,6 +455,7 @@ module.exports = {
 }
 
 ```
+
 ### 新建 .eslintignore
 创建 **.eslintignore** 文件，配置要忽略的文件或目录。
 ```
@@ -442,6 +465,7 @@ module.exports = {
 node_modules/
 dist/
 ```
+
 ### 添加 eslint 语法检测脚本
 在 **package.json** 中添加 eslint 的检测脚本命令。
 ```
@@ -452,19 +476,23 @@ dist/
   "lint": "eslint . --fix"
 }
 ```
+
 ### eslint 与 prettier 冲突
 解决 eslint 与 prettier 的格式化规则冲突。
 ```bash
 # 安装 eslint-config-prettier
 npm install eslint-config-prettier --save-dev
 ```
+
 ## husky + lint-staged
+
 ### 使用 lint-staged 优化 eslint 检测速度
 通过 lint-staged 工具，优化只检测本次提交的文件，而不是整个项目。
 ```bash
 # 安装 lint-staged
 npm install lint-staged --save-dev
 ```
+
 ### 使用 tsc 检测类型和报错
 通过 TypeScript 的编译器 tsc，在提交前检测类型和报错。
 ```bash
@@ -473,19 +501,23 @@ npm install typescript --save-dev
 # 初始化 tsconfig.json
 npx tsc --init
 ```
+
 ### 配置 husky
+
 #### 代码提交前 husky 检测语法
 通过 husky 和 lint-staged，在代码提交前进行 eslint 和 tsc 的检测。
 ```bash
 # 安装 husky
 npm install husky --save-dev
 ```
+
 #### 安装 husky
 通过 husky，在提交前检测语法。
 ```bash
 # 安装 husky
 npm install husky --save-dev
 ```
+
 #### 配置 husky 的 pre-commit 钩子
 ```json
 // package.json
@@ -496,15 +528,19 @@ npm install husky --save-dev
   }
 }
 ```
+
 ## Commit 信息的 Linter - Commitlint
+
 ### 安装 Commitlint
 使用 Commitlint 工具，对提交信息进行规范检测。
 ```bash
 # 安装 Commitlint
 npm install @commitlint/cli @commitlint/config-conventional --save-dev
 ```
+
 ### 使用 Commitlint
 在提交时，Commitlint 会检测提交信息是否符合规范。
+
 ### 配置规则包
 创建 **commitlint.config.js** 文件，配置 Commitlint 的规则包。
 ```jsx
@@ -514,6 +550,7 @@ module.exports = {
   extends: ['@commitlint/config-conventional'],
 };
 ```
+
 ### 使用 Husky 为 Commitlint 注册 Git Hooks
 通过 husky，在提交前使用 Commitlint 进行提交信息的规范检测。
 ```json
@@ -525,13 +562,16 @@ module.exports = {
   }
 }
 ```
+
 ## Commitizen
+
 ### cz-git
 使用 cz-git 工具，规范化生成提交信息。
 ```bash
 # 安装 Commitizen 和 cz-git
 npm install commitizen cz-git --save-dev
 ```
+
 ### 配置 commitlint.config.js 文件
 在 **commitlint.config.js** 文件中配置 Commitizen 的适配器。
 ```jsx
@@ -698,8 +738,10 @@ module.exports = {
 }
 
 ```
+
 ### 一键提交
 通过 **npm run commit** 一键生成规范的提交信息。
+
 
 ## 总结
 通过上述步骤，我们建立了一个完善的开发环境，包括了代码格式规范、语法检测、提交规范、Git Hooks、Commitlint、Commitizen 等方面的配置和工具的使用，从而提高了代码质量和开发效率。

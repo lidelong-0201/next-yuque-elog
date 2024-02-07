@@ -3,12 +3,13 @@
     {
       "id": 157043138,
       "doc_id": "aq03gghvtipp4rdq",
-      "updated": 1706860632000,
+      "updated": 1707200716000,
       "properties": {
         "title": "mini-react",
         "urlname": "aq03gghvtipp4rdq",
         "date": "2024-01-24 15:58:07",
-        "updated": "2024-02-02 15:57:12",
+        "updated": "2024-02-06 14:25:16",
+        "author": "李德龙",
         "cover": "https://cdn.nlark.com/yuque/0/2024/png/25520344/1706776674875-8a6542b5-82a7-42ed-a1b0-827511ccb115.png",
         "description": "[description](300行实现一个自己的mini-react)300行搭建一个自己的mini-reactjsxrequestIdlcallbackfiberdiffuseStateuseEffect贴上 github-repo https://github.com/lidelong-..."
       },
@@ -20,12 +21,13 @@
     {
       "id": 156393124,
       "doc_id": "gicvi8mz8xo94sfy",
-      "updated": 1706860634000,
+      "updated": 1707200716000,
       "properties": {
         "title": "搭建webpack项目（代码质量）",
         "urlname": "gicvi8mz8xo94sfy",
         "date": "2024-01-18 11:46:36",
-        "updated": "2024-02-02 15:57:14",
+        "updated": "2024-02-06 14:25:16",
+        "author": "李德龙",
         "description": "[description](在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，规范化代码格式、语法检测以及提交流程，以提升开发团队的协同工作。)在软件开发中，一个规范的开发环境是提高代码质量和协作效率的关键。本文将介绍如何通过一系列工具和配置，..."
       },
       "catalog": [],
@@ -36,12 +38,13 @@
     {
       "id": 156380535,
       "doc_id": "gs086u08zl5rgb1d",
-      "updated": 1705560093000,
+      "updated": 1707200716000,
       "properties": {
         "title": "搭建Webpack项目（初始化）",
         "urlname": "gs086u08zl5rgb1d",
         "date": "2024-01-18 10:36:10",
-        "updated": "2024-01-18 14:41:33",
+        "updated": "2024-02-06 14:25:16",
+        "author": "李德龙",
         "description": "[description](介绍了从零开始搭建Webpack5项目的过程，包括项目初始化、Webpack配置文件、TypeScript和React的集成、样式处理、静态资源处理、HtmlWebpackPlugin的使用、开发服务器配置、生产环境优化以及Babel的集成。通过这些步骤，建立了一个..."
       },
       "catalog": [],
@@ -52,12 +55,13 @@
     {
       "id": 156388848,
       "doc_id": "khsqdw6gilvle20i",
-      "updated": 1705560082000,
+      "updated": 1707200716000,
       "properties": {
         "title": "搭建Webpack项目（基础配置）",
         "urlname": "khsqdw6gilvle20i",
         "date": "2024-01-18 11:18:55",
-        "updated": "2024-01-18 14:41:22",
+        "updated": "2024-02-06 14:25:16",
+        "author": "李德龙",
         "cover": "https://cdn.nlark.com/yuque/0/2024/webp/25520344/1705548432304-cf8d3910-a3c5-48bb-b18e-ac49f5ba8357.webp",
         "description": "[description](构建耗时监控、持久化存储缓存、多线程 Loader、缩小构建目标以及 DevTools 配置等方面。其中，配置自定义记者数组用于在构建阶段执行特定操作，speed-measure-webpack-plugin 用于监控构建耗时。在 webpack5 中，通过持久化缓..."
       },
@@ -65,68 +69,115 @@
       "realName": "khsqdw6gilvle20i",
       "relativePath": "/khsqdw6gilvle20i.md",
       "docPath": "src/app/articles"
+    },
+    {
+      "id": 158300646,
+      "doc_id": "ngtbzowswtdcz4do",
+      "updated": 1707289048000,
+      "properties": {
+        "title": "全新API——Promise.withResolvers",
+        "urlname": "ngtbzowswtdcz4do",
+        "date": "2024-02-07 14:42:27",
+        "updated": "2024-02-07 14:57:28",
+        "author": "李德龙",
+        "description": "[description](简介了Promise.withResolvers方法，它提供了一种简洁而灵活的处理Promise的方式。通过返回包含Promise对象和解决/拒绝函数的对象，该方法使得处理Promise的状态更方便，并可用于各种场景，如处理流和队列。此外，它还支持非Promise构..."
+      },
+      "catalog": [],
+      "realName": "ngtbzowswtdcz4do",
+      "relativePath": "/ngtbzowswtdcz4do.md",
+      "docPath": "src/app/articles"
     }
   ],
   "catalog": [
     {
+      "uuid": "tWA-VT9YtQfoutt5",
+      "type": "DOC",
+      "title": "全新API——Promise.withResolvers",
+      "url": "ngtbzowswtdcz4do",
+      "slug": "ngtbzowswtdcz4do",
+      "id": 158300646,
+      "doc_id": 158300646,
+      "level": 0,
+      "depth": 1,
+      "open_window": 1,
+      "visible": 1,
+      "prev_uuid": "",
+      "sibling_uuid": "ea0yWG6J1tp0KWtc",
+      "child_uuid": "",
+      "parent_uuid": "",
+      "_serializer": "v2.toc_item"
+    },
+    {
+      "uuid": "ea0yWG6J1tp0KWtc",
       "type": "DOC",
       "title": "mini-react",
-      "uuid": "ea0yWG6J1tp0KWtc",
       "url": "aq03gghvtipp4rdq",
-      "prev_uuid": "",
+      "slug": "aq03gghvtipp4rdq",
+      "id": 157043138,
+      "doc_id": 157043138,
+      "level": 0,
+      "depth": 1,
+      "open_window": 1,
+      "visible": 1,
+      "prev_uuid": "tWA-VT9YtQfoutt5",
       "sibling_uuid": "7uOyVb_bQuGMOkV9",
       "child_uuid": "",
       "parent_uuid": "",
-      "doc_id": 157043138,
-      "level": 0,
-      "id": 157043138,
-      "open_window": 1,
-      "visible": 1
+      "_serializer": "v2.toc_item"
     },
     {
+      "uuid": "7uOyVb_bQuGMOkV9",
       "type": "DOC",
       "title": "搭建webpack项目（代码质量）",
-      "uuid": "7uOyVb_bQuGMOkV9",
       "url": "gicvi8mz8xo94sfy",
+      "slug": "gicvi8mz8xo94sfy",
+      "id": 156393124,
+      "doc_id": 156393124,
+      "level": 0,
+      "depth": 1,
+      "open_window": 1,
+      "visible": 1,
       "prev_uuid": "ea0yWG6J1tp0KWtc",
       "sibling_uuid": "9iL8v3HtcY8Pweyq",
       "child_uuid": "",
       "parent_uuid": "",
-      "doc_id": 156393124,
-      "level": 0,
-      "id": 156393124,
-      "open_window": 1,
-      "visible": 1
+      "_serializer": "v2.toc_item"
     },
     {
+      "uuid": "9iL8v3HtcY8Pweyq",
       "type": "DOC",
       "title": "搭建Webpack项目（基础配置）",
-      "uuid": "9iL8v3HtcY8Pweyq",
       "url": "khsqdw6gilvle20i",
+      "slug": "khsqdw6gilvle20i",
+      "id": 156388848,
+      "doc_id": 156388848,
+      "level": 0,
+      "depth": 1,
+      "open_window": 1,
+      "visible": 1,
       "prev_uuid": "7uOyVb_bQuGMOkV9",
       "sibling_uuid": "18iYYIHMPSxY7_NE",
       "child_uuid": "",
       "parent_uuid": "",
-      "doc_id": 156388848,
-      "level": 0,
-      "id": 156388848,
-      "open_window": 1,
-      "visible": 1
+      "_serializer": "v2.toc_item"
     },
     {
+      "uuid": "18iYYIHMPSxY7_NE",
       "type": "DOC",
       "title": "搭建Webpack项目（初始化）",
-      "uuid": "18iYYIHMPSxY7_NE",
       "url": "gs086u08zl5rgb1d",
+      "slug": "gs086u08zl5rgb1d",
+      "id": 156380535,
+      "doc_id": 156380535,
+      "level": 0,
+      "depth": 1,
+      "open_window": 1,
+      "visible": 1,
       "prev_uuid": "9iL8v3HtcY8Pweyq",
       "sibling_uuid": "",
       "child_uuid": "",
       "parent_uuid": "",
-      "doc_id": 156380535,
-      "level": 0,
-      "id": 156380535,
-      "open_window": 1,
-      "visible": 1
+      "_serializer": "v2.toc_item"
     }
   ]
 }

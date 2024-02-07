@@ -16,6 +16,7 @@ export const metadata = {
 export default (props) => <ArticleLayout article={article} {...props} />;
 
 
+
 ## 引入 less、sass（scss）、stylus
 安装相关依赖：
 ```bash
@@ -117,6 +118,7 @@ declare module '*.styl' {
 }
 ```
 
+
 ## 热更新
 安装相关依赖
 ```bash
@@ -153,7 +155,9 @@ module.exports = {
 };
 ```
 在 **App.tsx** 中测试热更新效果，修改组件代码或添加删除页面 hooks 时，观察页面是否实时更新，并检查 React 组件的状态是否保留。
+
 ## webpack构建速度优化
+
 ### webpack 进度条
 webpackbar 这是一款个人感觉是个十分美观优雅的进度条，很多成名框架都用过他。而且使用起来也极其方便，也可以支持多个并发构建是个十分强大的进度插件。
 ```bash
@@ -212,9 +216,13 @@ export default baseConfig;
   },
 }
 ```
-当然多数情况下，我们并不会使用这些，基本默认就足够了。最后，刚才的代码我们的输出表现为：<br />其他的工具可看：[聊聊webpack的打包进度展示及美化](https://juejin.cn/post/7055321034454466596)
+当然多数情况下，我们并不会使用这些，基本默认就足够了。最后，刚才的代码我们的输出表现为：
+其他的工具可看：[聊聊webpack的打包进度展示及美化](https://juejin.cn/post/7055321034454466596)
+
 ### 构建耗时
-Never, ever, ever, ever work on performance improvements or optimization without monitoring! 永远，永远，永远，永远不要在没有监控的情况下进行性能改进或优化！<br />意思是，如果我们想要去优化webpack，一定要通过评估、测试之后，针对影响性能的点进行优化，而不是盲目地为了优化而优化。<br />当进行优化的时候，肯定要先知道时间都花费在哪些步骤上了，而 [speed-measure-webpack-plugin](https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fspeed-measure-webpack-plugin) 插件可以帮我们做到，安装依赖：
+Never, ever, ever, ever work on performance improvements or optimization without monitoring! 永远，永远，永远，永远不要在没有监控的情况下进行性能改进或优化！
+意思是，如果我们想要去优化webpack，一定要通过评估、测试之后，针对影响性能的点进行优化，而不是盲目地为了优化而优化。
+当进行优化的时候，肯定要先知道时间都花费在哪些步骤上了，而 [speed-measure-webpack-plugin](https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fspeed-measure-webpack-plugin) 插件可以帮我们做到，安装依赖：
 ```bash
 pnpm add speed-measure-webpack-plugin -D
 ```
@@ -243,8 +251,10 @@ module.exports = smp.wrap(merge(prodConfig, {
 ```
 执行npm run build:analy命令
 
+
 ### 开启持久化存储缓存
-在webpack5之前做缓存是使用babel-loader缓存解决 js 的解析结果，cache-loader缓存css等资源的解析结果，还有模块缓存插件hard-source-webpack-plugin，配置好缓存后第二次打包，通过对文件做哈希对比来验证文件前后是否一致，如果一致则采用上一次的缓存，可以极大地节省时间。<br />webpack5 较于 webpack4，新增了持久化缓存、改进缓存算法等优化，通过配置 [webpack 持久化缓存](https://link.juejin.cn?target=https%3A%2F%2Fwebpack.docschina.org%2Fconfiguration%2Fcache%2F%23root)，来缓存生成的 webpack 模块和 chunk，改善下一次打包的构建速度,可提速 90% 左右,配置也简单，修改webpack.base.ts：
+在webpack5之前做缓存是使用babel-loader缓存解决 js 的解析结果，cache-loader缓存css等资源的解析结果，还有模块缓存插件hard-source-webpack-plugin，配置好缓存后第二次打包，通过对文件做哈希对比来验证文件前后是否一致，如果一致则采用上一次的缓存，可以极大地节省时间。
+webpack5 较于 webpack4，新增了持久化缓存、改进缓存算法等优化，通过配置 [webpack 持久化缓存](https://link.juejin.cn?target=https%3A%2F%2Fwebpack.docschina.org%2Fconfiguration%2Fcache%2F%23root)，来缓存生成的 webpack 模块和 chunk，改善下一次打包的构建速度,可提速 90% 左右,配置也简单，修改webpack.base.ts：
 ```
 // webpack.base.ts
 // ...
@@ -263,12 +273,15 @@ module.exports = {
 | 打包模式 | 4945毫秒 | 590毫秒 |
 
 通过开启webpack5持久化存储缓存，极大缩短了启动和打包的时间。缓存的存储位置在node_modules/.cache/webpack，里面又区分了development和production缓存。
+
 ### 开启多线程 loader
-运行在 Node.js 之上的 webpack 是单线程模式的，也就是说，webpack 打包只能逐个文件处理，当 webpack 需要打包大量文件时，打包时间就会比较漫长。<br />webpack的loader默认在单线程执行，现代电脑一般都有多核cpu，可以借助多核cpu开启多线程loader解析，可以极大地提升loader解析的速度，[thread-loader](https://link.juejin.cn/?target=https%3A%2F%2Fwebpack.docschina.org%2Floaders%2Fthread-loader%2F%23root)就是用来开启多进程解析loader的，安装依赖
+运行在 Node.js 之上的 webpack 是单线程模式的，也就是说，webpack 打包只能逐个文件处理，当 webpack 需要打包大量文件时，打包时间就会比较漫长。
+webpack的loader默认在单线程执行，现代电脑一般都有多核cpu，可以借助多核cpu开启多线程loader解析，可以极大地提升loader解析的速度，[thread-loader](https://link.juejin.cn/?target=https%3A%2F%2Fwebpack.docschina.org%2Floaders%2Fthread-loader%2F%23root)就是用来开启多进程解析loader的，安装依赖
 ```bash
 pnpm add thread-loader -D
 ```
-使用时,需将此 loader 放置在其他 loader 之前。放置在此 loader 之后的 loader 会在一个独立的 worker 池中运行。<br />修改webpack.base.ts
+使用时,需将此 loader 放置在其他 loader 之前。放置在此 loader 之后的 loader 会在一个独立的 worker 池中运行。
+修改webpack.base.ts
 ```tsx
 module: {
   rules: [
@@ -279,7 +292,9 @@ module: {
   ]
 }
 ```
-由于thread-loader不支持抽离css插件MiniCssExtractPlugin.loader(下面会讲)，所以这里只配置了多进程解析 ts。<br />值得注意的是，开启多线程也是需要启动时间，thread-loader 会将你的 loader 放置在一个 worker 池里面运行，每个 worker 都是一个单独的有 600ms 限制的 Node.js 进程。同时跨进程的数据交换也会被限制，所以最好是项目变大到一定程度之时再采用，否则效果反而不好。
+由于thread-loader不支持抽离css插件MiniCssExtractPlugin.loader(下面会讲)，所以这里只配置了多进程解析 ts。
+值得注意的是，开启多线程也是需要启动时间，thread-loader 会将你的 loader 放置在一个 worker 池里面运行，每个 worker 都是一个单独的有 600ms 限制的 Node.js 进程。同时跨进程的数据交换也会被限制，所以最好是项目变大到一定程度之时再采用，否则效果反而不好。
+
 ### 缩小构建目标
 一般第三库都是已经处理好的,不需要再次使用loader去解析，可以按照实际情况合理配置loader的作用范围，来减少不必要的loader解析，节省时间，通过使用 include和exclude 两个配置项，可以实现这个功能，常见的例如：
 
@@ -299,8 +314,10 @@ module: {
 }
 ```
 其他loader也是相同的配置方式，如果除src文件外也还有需要解析的，就把对应的目录地址加上就可以了，比如需要引入antd的css，可以把antd的文件目录路径添加解析css规则到include里面。
+
 ### devtools 配置
-开发过程中或者打包后的代码都是webpack处理后的代码，如果进行调试肯定希望看到源代码，而不是编译后的代码，source map就是用来做源码映射的，不同的映射模式会明显影响到构建和重新构建的速度，devtool选项就是webpack提供的选择源码映射方式的配置。<br />devtool的命名规则为：
+开发过程中或者打包后的代码都是webpack处理后的代码，如果进行调试肯定希望看到源代码，而不是编译后的代码，source map就是用来做源码映射的，不同的映射模式会明显影响到构建和重新构建的速度，devtool选项就是webpack提供的选择源码映射方式的配置。
+devtool的命名规则为：
 ```bash
 ^(inline-|hidden-|eval-)?(nosources-)?(cheap-(module-)?)?source-map$
 ```
@@ -335,7 +352,8 @@ module.exports = {
   // devtool: '', // 不用配置devtool此项
 }
 ```
-none配置在调试的时候，只能看到编译后的代码，也不会泄露源代码，打包速度也会比较快。只是不方便线上排查问题，但一般都可以根据报错信息在本地环境很快找出问题所在。<br />**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
+none配置在调试的时候，只能看到编译后的代码，也不会泄露源代码，打包速度也会比较快。只是不方便线上排查问题，但一般都可以根据报错信息在本地环境很快找出问题所在。
+**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
 
 
   

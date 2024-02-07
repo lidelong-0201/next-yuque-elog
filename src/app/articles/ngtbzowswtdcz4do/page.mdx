@@ -1,0 +1,74 @@
+
+import { ArticleLayout } from '@/components/ArticleLayout';
+
+export const article = {
+    author: 'delong',
+    date: "2024-02-07 14:42:27",
+    title: "全新API——Promise.withResolvers",
+    description: "简介了Promise.withResolvers方法，它提供了一种简洁而灵活的处理Promise的方式。通过返回包含Promise对象和解决/拒绝函数的对象，该方法使得处理Promise的状态更方便，并可用于各种场景，如处理流和队列。此外，它还支持非Promise构造函数，增加了更多的应用可能性。使用Promise.withResolvers可以让我们以更优雅的方式处理Promise，并使代码更易读和维护。",
+  };
+  
+export const metadata = {
+    title: article.title,
+    description: article.description,
+};
+  
+export default (props) => <ArticleLayout article={article} {...props} />;
+
+
+在没有 Promise.withResolvers 之前，你可能实现了这样的代码：
+```jsx
+let resolve, reject;
+const promise = new Promise((res, rej) => {
+  resolve = res;
+  reject = rej;
+});
+Math.random() > 0.5 ? resolve("ok") : reject("not ok");
+```
+在 Chrome 119（发布于2023年10月31日）版本之后，可以使用以下方式实现：
+```jsx
+const { promise, resolve, reject } = Promise.withResolvers();
+Math.random() > 0.5 ? resolve("ok") : reject("not ok");
+```
+Promise.withResolvers 是一个静态方法，返回一个包含新的 Promise 对象和两个函数的对象，用于解决或拒绝该 Promise。这两个函数对应于传递给 Promise() 构造函数的执行器的两个参数。
+Promise.withResolvers 的关键区别在于现在解决和拒绝函数与 Promise 对象本身处于同一作用域，而不是在执行器中创建并且只能使用一次。这使得在某些更高级的用例中可能会更加方便，例如在重复事件中重用解决和拒绝函数，特别是在处理流和队列时。这通常也意味着嵌套层级较少，而不是在执行器中包含大量逻辑。
+```jsx
+async function* readableToAsyncIterable(stream) {
+  let { promise, resolve, reject } = Promise.withResolvers();
+  stream.on("error", (error) => reject(error));
+  stream.on("end", () => resolve());
+  stream.on("readable", () => resolve());
+
+  while (stream.readable) {
+    await promise;
+    let chunk;
+    while ((chunk = stream.read())) {
+      yield chunk;
+    }
+    ({ promise, resolve, reject } = Promise.withResolvers());
+  }
+}
+
+```
+在使用 Promise.withResolvers 的示例中，将 Node.js 的可读流转换为异步可迭代对象。每个 promise 代表一批可用的数据，每次读取当前批次时，将创建一个新的 promise 用于下一个批次。请注意，事件监听器只添加了一次，但实际上每次都会调用不同版本的解决和拒绝函数。
+此外，Promise.withResolvers 也适用于非 Promise 构造函数。可以在任何实现了与 Promise() 构造函数相同签名的构造函数上调用它。例如，我们可以在一个将 console.log 作为解决和拒绝函数传递给执行器的构造函数上调用它。
+```jsx
+class NotPromise {
+  constructor(executor) {
+    // “resolve”和“reject”函数和原生的 promise 的行为完全不同
+    // 但 Promise.withResolvers() 只是返回它们，就像是原生的 promise 一样
+    executor(
+      (value) => console.log("以", value, "解决"),
+      (reason) => console.log("以", reason, "拒绝"),
+    );
+  }
+}
+
+const { promise, resolve, reject } = Promise.withResolvers.call(NotPromise);
+resolve("hello");
+// 输出：以 hello 解决
+
+```
+总而言之，Promise.withResolvers 提供了一种更简洁、更高级的方式来处理 Promise 的解决和拒绝，并且支持更多灵活的用例，使代码更易于阅读和维护。
+
+  

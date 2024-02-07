@@ -15,9 +15,12 @@ export const metadata = {
   
 export default (props) => <ArticleLayout article={article} {...props} />;
 
-<br />**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
+
+**完整代码链接：**[**repo**](https://github.com/lidelong-0201/dl-react-webpack)
+
 ## 项目初始化
 在开始我们的React项目之旅之前，我们首先要进行项目初始化。在这一部分，我们将关注依赖管理，而我们选择的工具是 **pnpm**。
+
 ### 为什么选择pnpm？
 
 - **更快的安装和更新时间：**
@@ -31,7 +34,9 @@ export default (props) => <ArticleLayout article={article} {...props} />;
 - **更清晰的依赖树：**
    - pnpm生成比npm和yarn更清晰的依赖树。这是因为pnpm对依赖项使用平面目录结构，而npm和yarn使用嵌套目录。扁平结构使得依赖树更容易理解和调试。
 
-总的来说，对于具有大量依赖关系或使用monorepo结构的项目，pnpm是一个不错的选择。需要注意的是，虽然pnpm在这些方面表现出色，但由于其使用率较低，可能会在某些包或工具的兼容性方面遇到一些问题。<br />详情可参考[这里](https://pnpm.io/)。由于本系列不涉及更高阶的功能，我们将重点介绍基本使用。
+总的来说，对于具有大量依赖关系或使用monorepo结构的项目，pnpm是一个不错的选择。需要注意的是，虽然pnpm在这些方面表现出色，但由于其使用率较低，可能会在某些包或工具的兼容性方面遇到一些问题。
+详情可参考[这里](https://pnpm.io/)。由于本系列不涉及更高阶的功能，我们将重点介绍基本使用。
+
 ### 初始化项目
 首先，确保你已经安装了pnpm。你可以使用以下命令检查你的pnpm版本：
 ```bash
@@ -56,8 +61,10 @@ pnpm init
   "license": "ISC"
 }
 ```
+
 ## 基本项目结构
 在第一部分中，我们选择了pnpm作为我们的依赖管理工具。现在，在第二部分中，我们将着手建立项目的基本结构。
+
 ### 项目目录结构
 在根目录下，新建以下基本项目结构：
 ```
@@ -73,6 +80,7 @@ pnpm init
 │   └── index.tsx # React应用入口页面
 └── package.json
 ```
+
 ### index.html内容
 在**public**目录下，新建**index.html**文件，其内容如下：
 ```html
@@ -91,6 +99,7 @@ pnpm init
 </html>
 ```
 这是一个简单的HTML模板，用于加载React应用。
+
 ### 项目文件说明
 
 - **build目录：**
@@ -107,14 +116,17 @@ pnpm init
    - 项目的配置文件，包含项目的元信息和依赖信息。
 
 这个基本结构将成为我们构建React应用的起点。
+
 ## 引入React
 在第二部分中，我们已经建立了项目的基本结构。现在，在第三部分中，我们将引入React，并编写相关文件。
+
 ### 安装依赖
 运行以下命令安装React及相关类型声明：
 ```bash
 pnpm add react react-dom
 pnpm add @types/react @types/react-dom -D
 ```
+
 ### 编写入口文件 **src/index.tsx**
 ```jsx
 import React from 'react';
@@ -129,12 +141,14 @@ if (root) {
   createRoot(root).render(<App />);
 }
 ```
+
 ### 编写样式文件 **src/App.css**
 ```css
 h2 {
   color: red;
 }
 ```
+
 ### 编写主组件 **src/App.tsx**
 ```tsx
 import React from 'react';
@@ -148,7 +162,9 @@ export default App;
 ```
 通过以上步骤，我们成功引入了React，并编写了一个简单的组件以及相应的样式文件。在下一部分，我们将继续配置Webpack，使得我们的React应用可以顺利运行。
 
+
 ## 引入TypeScript
+
 ### 为什么使用 TypeScript？
 在大型项目中，JavaScript可能会面临一系列挑战，如代码管理、可扩展性、协作和维护等。TypeScript是一种解决这些挑战的工具，它具有以下优点：
 
@@ -166,6 +182,7 @@ export default App;
    - 可在编译时捕获错误，减少运行时错误，提高性能。
 
 总的来说，TypeScript提升了代码质量、可读性、可维护性、可扩展性和协作，同时也有助于提高性能。因此，对于编写大型项目，TypeScript是一个优秀的选择。
+
 ### 引入 TypeScript
 首先，安装 TypeScript 及相关依赖：
 ```bash
@@ -181,6 +198,7 @@ pnpm add babel-loader ts-node @babel/core @babel/preset-react @babel/preset-type
 - **core-js**: 使用低版本JavaScript语法模拟高版本的库，也即垫片。
 
 接下来，我们需要配置Babel的预设，以处理TypeScript和React的语法。
+
 ### 初始化 **tsconfig.json**
 运行以下命令初始化 **tsconfig.json** 文件：
 ```bash
@@ -192,7 +210,9 @@ tsc --init
 ```
 
 
+
 ## Webpack配置
+
 ### Webpack Base Configuration (webpack.base.ts)
 首先，我们创建了** build/webpack.base.ts** 作为基本配置文件。以下是对这一步骤的改进和详细说明：
 
@@ -223,11 +243,13 @@ const baseConfig: Configuration = {
 
 ```
 
+
 #### 安装 @types/node 依赖
 在项目中引入 TypeScript 后，为了解决 TypeScript 对 Node.js 模块的声明文件问题，我们安装了 **@types/node** 依赖。这是因为 TypeScript 需要模块的声明文件来说明模块对外公开的方法和属性的类型以及内容。
 ```bash
 pnpm add @types/node -D
 ```
+
 #### 安装样式相关 Loader
 在项目中引入了 CSS 相关的 Loader，包括 **style-loader** 和 **css-loader**。这是为了处理在 **App.tsx** 中引入的 CSS 文件。
 ```bash
@@ -303,6 +325,7 @@ const baseConfig: Configuration = {
 export default baseConfig
 
 ```
+
 #### 优化 Webpack Base Configuration 文件结构
 将 Babel 配置抽离到 **babel.config.js**，并简化了在 **webpack.base.ts** 中的相关配置。这使得配置文件更具可读性，也更易于维护。
 ```tsx
@@ -347,18 +370,24 @@ module.exports = {
  // ...
 
 ```
+
 #### 完善 TypeScript 配置 (tsconfig.json)
 在 **tsconfig.json** 文件中新增了 **"jsx": "react-jsx"**，这是为了支持 React 的 JSX 语法。这样就不需要在 **.tsx** 文件中手动引入 React。
+
 #### 安装 CopyWebpackPlugin
 为了处理静态资源（如 public 文件夹中的图标文件）的复制，安装了 **copy-webpack-plugin** 依赖。在 **webpack.base.ts** 中进行了相应配置，以确保这些静态资源被复制到构建出口文件夹中。
+
 #### 
+
 ### Webpack Development Configuration (webpack.dev.ts)
 创建了用于开发环境的 Webpack 配置文件 **webpack.dev.ts**。以下是对这一步骤的改进和详细说明：
+
 #### 安装开发环境相关依赖
 安装了开发环境相关的依赖，包括 **webpack-dev-server**、**html-webpack-plugin** 和 **webpack-merge**。这些依赖用于在开发环境中启动项目，并提供热更新等功能。
 ```bash
 pnpm add webpack-dev-server html-webpack-plugin webpack-merge -D
 ```
+
 #### 配置开发环境
 在 **webpack.dev.ts** 中配置了开发环境相关的信息，包括开发服务器的主机、端口、热更新等设置。
 ```bash
@@ -397,12 +426,16 @@ const devConfig: Configuration = merge(baseConfig, {
 export default devConfig;
 
 ```
+
 #### 优化打包速度
 选择了适合开发环境的 **eval-cheap-module-source-map** 作为 devtool，以提高热更新速度。这样做是为了在开发中每行代码不写太长，只需要定位到行，而且加上 **cheap** 和 **module** 以方便找到源代码的错误。
+
 #### 添加启动脚本
 在 **package.json** 中添加了启动脚本，通过 **pnpm run dev** 可以启动开发服务器。
+
 #### 解决 TypeScript 报错
 解决了在开发环境中 TypeScript 报错的问题，通过在 **tsconfig.json** 中添加 **"jsx": "react-jsx"**。
+
 ### Webpack Production Configuration (webpack.prod.ts)
 ```bash
 import { Configuration } from "webpack";
@@ -417,10 +450,13 @@ export default prodConfig;
 
 ```
 创建了用于生产环境的 Webpack 配置文件 **webpack.prod.ts**。以下是对这一步骤的改进和详细说明：
+
 #### 安装生产环境相关依赖
 安装了生产环境相关的依赖，包括 **webpack-merge**。这是为了通过 **webpack.prod.ts** 文件配置生产环境信息。
+
 #### 配置生产环境
 在 **webpack.prod.ts** 中配置了生产环境的相关信息，包括选择适合生产环境的 **none** 作为 devtool，以减小打包体积。
+
 #### 添加打包脚本
 在 **package.json** 中添加了打包脚本，通过 **pnpm run build** 可以进行生产环境的打包。
 ```json
@@ -432,23 +468,30 @@ export default prodConfig;
 ```
 
 
+
 ## 配置环境变量
+
 #### 使用 corss-env + DefinePlugin
 环境变量的配置分为两种：
 
 1. 区分是开发模式还是打包构建模式。
 2. 区分项目业务环境，如开发/测试/预测/正式环境。
+
 ##### 区分开发模式还是打包构建模式
 我们使用 **process.env.NODE_ENV** 来区分开发模式和打包构建模式。这是因为很多第三方包中的判断都采用了这个环境变量。
+
 ##### 区分项目业务环境
-我们自定义了一个环境变量 **process.env.BASE_ENV**，用于区分项目的业务环境，如开发环境（development）、测试环境（test）、预测环境（pre）、正式环境（production）。<br />为了设置这些环境变量，我们使用了 **cross-env** 和 **webpack.DefinePlugin**。
+我们自定义了一个环境变量 **process.env.BASE_ENV**，用于区分项目的业务环境，如开发环境（development）、测试环境（test）、预测环境（pre）、正式环境（production）。
+为了设置这些环境变量，我们使用了 **cross-env** 和 **webpack.DefinePlugin**。
 
 - **cross-env** 解决了不同系统设置环境变量的兼容性问题。
 - **webpack.DefinePlugin** 是 webpack 内置的插件，可以为业务代码注入环境变量。
+
 ##### 安装 cross-env
 ```bash
 pnpm add cross-env -D
 ```
+
 ##### 修改 package.json 的 scripts
 ```json
 "scripts": {
@@ -463,6 +506,7 @@ pnpm add cross-env -D
 },
 ```
 这样我们就可以通过命令设置不同的开发环境和业务环境。
+
 ##### 在 webpack.base.ts 中打印环境变量
 在 **webpack.base.ts** 中通过 **webpack.DefinePlugin** 插件将环境变量注入到业务代码中：
 ```tsx
@@ -504,6 +548,7 @@ declare module 'process' {
 }
 ```
 这样配置后，环境变量会被正确注入到业务代码中。
+
 ##### 在业务代码中使用环境变量
 在业务代码中，我们可以通过 **process.env.NODE_ENV** 和 **process.env.BASE_ENV** 来访问对应的环境变量。例如，在 **src/index.tsx** 中：
 ```tsx
@@ -514,11 +559,14 @@ console.log('BASE_ENV', process.env.BASE_ENV);
 ```
 通过以上配置，我们实现了开发模式和打包构建模式的区分，同时也可以根据业务环境来配置不同的接口地址和其他数据。
 
+
 #### 配置多环境运行配置
+
 ##### 安装依赖
 ```bash
 pnpm add dotenv
 ```
+
 ##### 创建多文件配置文件夹
 在根目录下新建一个名为 **env** 的文件夹，用于存放不同环境的配置文件。
 ```
@@ -542,6 +590,7 @@ REACT_APP_API_URL=https://api-pre.com
 # env/.env.production
 REACT_APP_API_URL=https://api-prod.com
 ```
+
 ##### 在 webpack.base.ts 中引入并解析对应环境配置
 ```tsx
 import path from "path";
@@ -569,6 +618,7 @@ const baseConfig: Configuration = {
 export default baseConfig;
 ```
 这段代码通过 **dotenv** 库加载了对应环境的配置文件，并将其注入到业务代码中。
+
 ##### 业务代码中使用环境变量
 在业务代码中，我们可以直接使用 **process.env** 访问对应环境的配置，例如在 **src/index.tsx** 中：
 ```tsx
@@ -587,7 +637,9 @@ if (root) {
 ```
 通过以上配置，我们实现了多环境下的灵活配置，可以根据不同的环境加载对应的配置文件。
 
+
 ### 文件别名
+
 ####  在 webpack.base.ts 中配置文件别名
 在 **webpack.base.ts** 文件中，配置文件别名，使得在项目中可以使用 **@** 作为路径别名，指向 **src** 目录：
 ```tsx
@@ -625,12 +677,15 @@ function App() {
 
 export default App;
 ```
+
 ### 重启项目时在同一个浏览器 Tab 中打开页面
+
 #### 安装依赖
 参考：[create-react-app](https://link.juejin.cn/?target=https%3A%2F%2Flink.zhihu.com%2F%3Ftarget%3Dhttps%253A%2F%2Fgithub.com%2Ffacebook%2Fcreate-react-app%2Ftree%2Fmain%2Fpackages%2Freact-dev-utils) 的启动方式，复制以下两个文件源码，并将其放置在 **build/util** 目录下：
 
 - openBrowser.js
 - [openChrome.applescript](https://github.com/facebook/create-react-app/blob/main/packages/react-dev-utils/openChrome.applescript)
+
 #### 8.2 修改 webpack.dev.ts 配置
 在 **webpack.dev.ts** 文件中进行修改，引入 **openBrowser** 模块，并配置以在同一个浏览器 Tab 中打开页面：
 ```
