@@ -2,8 +2,9 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition, Combobox } from '@headlessui/react'
 import clsx from 'clsx'
-import {useRequest} from 'ahooks'
+import { useRequest } from 'ahooks'
 import { useRouter } from 'next/navigation'
+import { renderToString } from 'react-dom/server'
 function SearchIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg
@@ -30,40 +31,59 @@ const notFound = (
   </div>
 )
 interface Article {
-  title: string;
-  id: string;
-  target:{
-    slug:string;
+  title: string
+  id: string
+  summary: string
+  target: {
+    slug: string
   }
 }
-function Search({closeModal}:{closeModal:()=>void}) {
+function Search({ closeModal }: { closeModal: () => void }) {
   const router = useRouter()
   const [data, setData] = useState<Article[]>([])
   const [inputVal, setInputVal] = useState<string>('')
-  const {run:getDoc} = useRequest((query)=>{
-    if(!query) return Promise.resolve([])
-    return  fetch('/api/docSearch?q=' + query, {
-      method: 'GET',
-      cache: 'no-cache',
-    }).then((res)=>res.json())
-  },{
-    onSuccess(data) {
+  const { run: getDoc } = useRequest(
+    (query) => {
+      if (!query) return Promise.resolve([])
+      return fetch('/api/docSearch?q=' + query, {
+        method: 'GET',
+        cache: 'no-cache',
+      }).then((res) => res.json())
+    },
+    {
+      onSuccess(data) {
         setData(data)
+      },
+      onError(e) {
+        console.log(e)
+      },
+      manual: true,
     },
-    onError(e,) {
-        console.log(e);
-    },
-    manual:true
-  })
- 
+  )
+
+  const getHighlightedContent = (str: string) => {
+    const highlightedMatch = str.replace(
+      new RegExp(inputVal, 'gi'),
+      (match) => {
+        return renderToString(
+          <span className="bg-yellow-200 text-yellow-800">{match}</span>,
+        )
+      },
+    )
+    return {
+      __html: highlightedMatch,
+    }
+  }
 
   return (
     <>
-      <Combobox onChange={(title) => {
-        closeModal()
-        const slug = data.find(item=>item.title===title)!.target.slug
-        router.push('/articles/'+slug)
-      }}>
+      <Combobox
+        onChange={(title) => {
+          closeModal()
+          const slug = data.find((item) => item.title === title)!.target.slug
+          router.push('/articles/' + slug)
+        }}
+      >
         <div className="flex items-center">
           <Combobox.Input
             className={
@@ -84,28 +104,40 @@ function Search({closeModal}:{closeModal:()=>void}) {
             'max-h-[18.375rem] divide-y divide-slate-200 overflow-y-auto rounded-b-lg border-t border-slate-200 text-sm leading-6'
           }
         >
-          {data.map((article) => (
-            <Combobox.Option
-              key={article.id}
-              value={article.title}
-              as={Fragment}
-            >
-              {({ active }) => (
-                <li
-                  className={clsx(
-                    'flex cursor-pointer items-center justify-between whitespace-nowrap p-4 font-semibold',
-                    {
-                      // 样式冲突
-                      ['text-teal-500']: active,
-                      ['text-slate-900']: !active,
-                    },
-                  )}
-                >
-                  {article.title}
-                </li>
-              )}
-            </Combobox.Option>
-          ))}
+          {data.map((article) => {
+            return (
+              <Combobox.Option
+                key={article.id}
+                value={article.title}
+                as={Fragment}
+              >
+                {({ active }) => (
+                  <li
+                    className={clsx('cursor-pointer p-4 ', {
+                      ['bg-zinc-100']: active,
+                    })}
+                  >
+                    <h3
+                      className={clsx(
+                        'whitespace-nowrap font-semibold text-slate-900',
+                      )}
+                      dangerouslySetInnerHTML={getHighlightedContent(
+                        article.title,
+                      )}
+                    ></h3>
+                    <p
+                      className={
+                        'overflow-hidden overflow-ellipsis whitespace-nowrap text-slate-700'
+                      }
+                      dangerouslySetInnerHTML={getHighlightedContent(
+                        article.summary,
+                      )}
+                    ></p>
+                  </li>
+                )}
+              </Combobox.Option>
+            )
+          })}
         </Combobox.Options>
         <div></div>
       </Combobox>
@@ -159,7 +191,7 @@ export default function DocSearch() {
           >
             <div className="relative w-full max-w-lg scale-100 transform px-4 opacity-100 transition-all">
               <Dialog.Panel className="mx-auto max-w-sm rounded bg-white">
-                <Search closeModal={closeModal}/>
+                <Search closeModal={closeModal} />
               </Dialog.Panel>
             </div>
           </Transition.Child>
@@ -168,4 +200,3 @@ export default function DocSearch() {
     </>
   )
 }
-

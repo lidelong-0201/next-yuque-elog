@@ -14,7 +14,7 @@ export const GET = async (request: NextRequest) => {
   }
 
   const res = await fetch(
-    `https://www.yuque.com/api/v2/search?q=${query.q}&type=doc&scope=lidelong-blog/info`,
+    `https://www.yuque.com/api/v2/search?q=${query.q}&type=doc&scope=lidelong-blog/info&strict=true`,
     requestOptions,
   ).then((response) => response.json())
 
