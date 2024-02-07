@@ -83,7 +83,12 @@ function Project({ project }: { project: ProjectType }) {
     <Link href={project.link.href}>
       <li className="flex gap-4">
         <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-          <Image src={project.logo} alt="" className="h-7 w-7" unoptimized />
+          <Image
+            src={project.logo}
+            alt=""
+            className="h-7 w-7 rounded-full"
+            unoptimized
+          />
         </div>
         <dl className="flex flex-auto flex-wrap gap-x-2">
           <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
